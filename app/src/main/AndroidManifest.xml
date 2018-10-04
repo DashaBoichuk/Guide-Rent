@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".TopGuidesActivity"
+            android:label="@string/title_activity_top_guides"></activity>
     </application>
 
 </manifest>
