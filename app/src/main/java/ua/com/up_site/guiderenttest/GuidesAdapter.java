@@ -28,12 +28,8 @@ public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewH
     public void onBindViewHolder(@NonNull GuidesAdapter.GuideViewHolder viewHolder, int position) {
         GuideInfo guideInfo = mGuideInfo.get(position);
 
-        TextView nameTextView = viewHolder.nameTextView;
-        TextView ageTextView = viewHolder.ageTextView;
-        ImageView profilePic = viewHolder.guideProfileImage;
-
-        nameTextView.setText(guideInfo.getName());
-        ageTextView.setText(guideInfo.getAge());
+        viewHolder.nameTextView.setText(guideInfo.getName());
+        viewHolder.ageTextView.setText(guideInfo.getAge());
 
 
     }
@@ -63,4 +59,5 @@ public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewH
     public GuidesAdapter(List<GuideInfo> guideInfoList) {
         this.mGuideInfo = guideInfoList;
     }
+
 }
