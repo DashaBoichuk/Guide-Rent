@@ -28,17 +28,24 @@ public class TopGuidesActivity extends Activity {
         //...и прикрепляем его
         rvRecyclerView.setAdapter(adapter);
 
-        mLayoutManager = new GridLayoutManager(this, 3);
+        // (least common multiple of 1 and 2)
+        mLayoutManager = new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false);
 
        mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
            @Override
            public int getSpanSize(int position) {
-               switch(position % 2) {
+               // 3 is the sum of items in one repeated section
+               switch (position % 3) {
+                   // first two items span 2 columns each
                    case 0:
+                   case 1:
                        return 1;
-                   default:
+                   // next one item span in 1 columns
+
+                   case 2:
                        return 2;
                }
+               throw new IllegalStateException("internal error");
            }
        });
 

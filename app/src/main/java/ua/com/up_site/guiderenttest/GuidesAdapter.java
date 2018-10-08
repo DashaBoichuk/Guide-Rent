@@ -13,6 +13,12 @@ import java.util.List;
 
 public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewHolder>  {
 
+    private List<GuideInfo> mGuideInfo;
+
+    GuidesAdapter(List<GuideInfo> guideInfoList) {
+        this.mGuideInfo = guideInfoList;
+    }
+
     @NonNull
     @Override
     public GuideViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -54,10 +60,5 @@ public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewH
         }
     }
 
-    private List<GuideInfo> mGuideInfo;
-
-    public GuidesAdapter(List<GuideInfo> guideInfoList) {
-        this.mGuideInfo = guideInfoList;
-    }
 
 }
