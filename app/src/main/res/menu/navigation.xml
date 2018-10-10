@@ -3,10 +3,23 @@
 
 
     <item
-        android:title="Item"
-        />
-    <item android:title="Item" />
-    <item android:title="Item" />
-    <item android:title="Item" />
-    <item android:title="Item" />
+        android:id="@+id/navigation_journal"
+        android:icon="@drawable/ic_action_star_border"
+        android:title="@string/title_location" />
+    <item
+        android:id="@+id/navigation_top"
+        android:icon="@drawable/ic_action_star_border"
+        android:title="@string/title_top" />
+    <item
+        android:id="@+id/navigation_route"
+        android:icon="@drawable/ic_action_star_border"
+        android:title="@string/title_route" />
+    <item
+        android:id="@+id/navigation_add"
+        android:icon="@drawable/ic_action_star_border"
+        android:title="@string/title_add" />
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_action_star_border"
+        android:title="@string/title_profile" />
 </menu>

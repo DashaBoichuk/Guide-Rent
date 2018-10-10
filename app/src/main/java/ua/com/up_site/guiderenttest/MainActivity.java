@@ -1,44 +1,55 @@
 package ua.com.up_site.guiderenttest;
 
 import android.app.Activity;
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-public class MainActivity extends Activity {
+public class MainActivity  extends AppCompatActivity
+implements TopGuidesFragment.OnFragmentInteractionListener{
+    FragmentTransaction mFragmentTransaction;
+    TopGuidesFragment mTopGuidesFragment;
 
-    ImageView imageview;
-    private boolean isGirlOnImage = false;
+    FrameLayout content;
+
+    BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                    mFragmentTransaction = getFragmentManager().beginTransaction();
+
+                    switch (menuItem.getItemId()) {
+                        case R.id.navigation_top:
+                            mFragmentTransaction.replace(R.id.content, mTopGuidesFragment);
+                            mFragmentTransaction.commit();
+                            return true;
+                        default: return false;
+                    }
+                }
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        imageview = findViewById(R.id.imageView);
+        BottomNavigationView bottomNavigationDrawer = findViewById(R.id.navigation);
+        bottomNavigationDrawer.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        content = findViewById(R.id.content);
 
-       // imageview.setOnClickListener(new View.OnClickListener() {
-       //     @Override
-       //     public void onClick(View v) {
-       //         if (isGirlOnImage) {
-       //             imageview.setImageResource(R.drawable.man_full);
-       //             isGirlOnImage = false;
-       //         } else {
-       //             imageview.setImageResource(R.drawable.girl);
-       //             isGirlOnImage = true;
-       //         }
-       //     }
-       // });
+        mTopGuidesFragment = new TopGuidesFragment();
+    }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
-
-        imageview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, TopGuidesActivity.class);
-                MainActivity.this.startActivity(intent);
-            }
-        });
     }
 }

@@ -1,20 +1,21 @@
 package ua.com.up_site.guiderenttest;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Activity;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 
 public class TopGuidesActivity extends Activity {
 
-    ArrayList<GuideInfo> guideInfoList;
-
     GridLayoutManager mLayoutManager;
-
-    final int NUMBER_OF_COLUMNS = 2;
+    ArrayList<GuideInfo> guideInfoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

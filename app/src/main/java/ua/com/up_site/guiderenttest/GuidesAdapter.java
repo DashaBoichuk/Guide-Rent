@@ -15,6 +15,7 @@ public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewH
 
     private List<GuideInfo> mGuideInfo;
 
+
     GuidesAdapter(List<GuideInfo> guideInfoList) {
         this.mGuideInfo = guideInfoList;
     }
