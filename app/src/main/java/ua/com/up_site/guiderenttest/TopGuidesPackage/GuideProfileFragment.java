@@ -1,43 +1,37 @@
-package ua.com.up_site.guiderenttest;
+package ua.com.up_site.guiderenttest.TopGuidesPackage;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
-import ua.com.up_site.guiderenttest.TopGuidesPackage.GuideInfo;
-import ua.com.up_site.guiderenttest.TopGuidesPackage.GuidesAdapter;
-
+import ua.com.up_site.guiderenttest.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TopGuidesFragment.OnFragmentInteractionListener} interface
+ * {@link GuideProfileFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TopGuidesFragment#newInstance} factory method to
+ * Use the {@link GuideProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TopGuidesFragment extends Fragment {
+public class GuideProfileFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private ArrayList<GuideInfo> guideInfoList;
-
-    private GridLayoutManager mLayoutManager;
-
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
 
     private OnFragmentInteractionListener mListener;
 
-    public TopGuidesFragment() {
+    public GuideProfileFragment() {
         // Required empty public constructor
     }
 
@@ -47,11 +41,11 @@ public class TopGuidesFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TopGuidesFragment.
+     * @return A new instance of fragment GuideProfileFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static TopGuidesFragment newInstance(String param1, String param2) {
-        TopGuidesFragment fragment = new TopGuidesFragment();
+    public static GuideProfileFragment newInstance(String param1, String param2) {
+        GuideProfileFragment fragment = new GuideProfileFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -62,45 +56,17 @@ public class TopGuidesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_top_guides, container, false);
-        RecyclerView rvRecyclerView = rootView.findViewById(R.id.guides_recycler_view);
-        //Создаём двадцать гидов
-        guideInfoList = GuideInfo.createGuideList(20);
-        //Из них создаём адаптер...
-        final GuidesAdapter adapter = new GuidesAdapter(guideInfoList);
-        //...и прикрепляем его
-        rvRecyclerView.setAdapter(adapter);
-
-        // (least common multiple of 1 and 2)
-        mLayoutManager = new GridLayoutManager(rootView.getContext(), 2, GridLayoutManager.VERTICAL, false);
-
-        mLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                // 3 is the sum of items in one repeated section
-                switch (position % 3) {
-                    // first two items span 2 columns each
-                    case 0:
-                    case 1:
-                        return 1;
-                    // next one item span in 1 columns
-
-                    case 2:
-                        return 2;
-                }
-                throw new IllegalStateException("internal error");
-            }
-        });
-
-        rvRecyclerView.setLayoutManager(mLayoutManager);
-
-        return rootView;
+        return inflater.inflate(R.layout.fragment_guide_profile, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -137,7 +103,7 @@ public class TopGuidesFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }

@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest;
+package ua.com.up_site.guiderenttest.TopGuidesPackage;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,12 +11,16 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ua.com.up_site.guiderenttest.R;
+
+//Адаптер для RecyclerView в топе гидов.
+
 public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewHolder>  {
 
     private List<GuideInfo> mGuideInfo;
 
 
-    GuidesAdapter(List<GuideInfo> guideInfoList) {
+    public GuidesAdapter(List<GuideInfo> guideInfoList) {
         this.mGuideInfo = guideInfoList;
     }
 

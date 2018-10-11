@@ -1,12 +1,16 @@
 <resources>
     <string name="app_name">GuideRentTest</string>
-    <string name="title_activity_top_guides">TopGuidesActivity</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_location">Location</string>
     <string name="title_top">Top</string>
     <string name="title_route">Route</string>
     <string name="title_add">Add</string>
     <string name="title_profile">Profile</string>
+    <string name="title_activity_guide_profile">GuideProfileActivity</string>
+    <string name="interests_title">Interests</string>
+    <string name="GuideName_title">Ann</string>
+    <string name="service_title">Service</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
