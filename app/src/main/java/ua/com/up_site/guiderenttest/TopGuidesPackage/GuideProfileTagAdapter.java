@@ -8,16 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import ua.com.up_site.guiderenttest.R;
 
 //Адаптер для интересов и сервисов в профиле гида
 public class GuideProfileTagAdapter extends RecyclerView.Adapter<GuideProfileTagAdapter.TagAdapterViewHolder> {
 
     //tagArray - передаётся во время создания адаптера, и содержит в себе все тэги
-    private String[] tagArray;
+    private ArrayList<String> tagArray;
 
     //Конструктор получает тэги в виде обычного строкового массива (сервисы или интересы)
-    public GuideProfileTagAdapter(String[] tagArray) {
+    public GuideProfileTagAdapter(ArrayList<String> tagArray) {
         this.tagArray = tagArray;
     }
 
@@ -34,7 +36,7 @@ public class GuideProfileTagAdapter extends RecyclerView.Adapter<GuideProfileTag
 
     @Override
     public void onBindViewHolder(@NonNull TagAdapterViewHolder tagAdapterViewHolder, int position) {
-        String tag = tagArray[position];
+        String tag = tagArray.get(position);
 
         tagAdapterViewHolder.tagTextView.setText(tag);
 
@@ -42,7 +44,7 @@ public class GuideProfileTagAdapter extends RecyclerView.Adapter<GuideProfileTag
 
     @Override
     public int getItemCount() {
-        return tagArray.length;
+        return tagArray.size();
     }
 
     class TagAdapterViewHolder extends RecyclerView.ViewHolder {

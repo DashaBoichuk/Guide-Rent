@@ -4,10 +4,16 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 import ua.com.up_site.guiderenttest.R;
 
@@ -31,9 +37,12 @@ public class GuideProfileFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private GuideInfo guideInfoItem;
+
     public GuideProfileFragment() {
         // Required empty public constructor
     }
+
 
     /**
      * Use this factory method to create a new instance of
@@ -53,6 +62,7 @@ public class GuideProfileFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,11 +72,37 @@ public class GuideProfileFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_guide_profile, container, false);
+
+        Bundle bundle = this.getArguments();
+        guideInfoItem = bundle.getParcelable("GuideInfoItem");
+
+        View rootView = inflater.inflate(R.layout.fragment_guide_profile, container, false);
+
+        RecyclerView rvRecyclerViewService = rootView.findViewById(R.id.profileServiceRV);
+        RecyclerView rvRecyclerViewInterests = rootView.findViewById(R.id.profileInterestsRV);
+
+        GuideProfileTagAdapter interestsAdapter = new GuideProfileTagAdapter(guideInfoItem.getInterests());
+        Toast.makeText(getActivity(), guideInfoItem.getInterests().toString(), Toast.LENGTH_SHORT).show();
+        GuideProfileTagAdapter serviceAdapter = new GuideProfileTagAdapter(guideInfoItem.getService());
+
+        rvRecyclerViewService.setAdapter(serviceAdapter);
+        rvRecyclerViewInterests.setAdapter(interestsAdapter);
+
+        RecyclerView.LayoutManager mLayoutManagerService = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView.LayoutManager mLayoutManagerInterests = new GridLayoutManager(getActivity(), 2, GridLayoutManager.HORIZONTAL, false);
+
+        rvRecyclerViewInterests.setLayoutManager(mLayoutManagerInterests);
+        rvRecyclerViewService.setLayoutManager(mLayoutManagerService);
+
+
+        //final GuideProfileTagAdapter serviceAdapter = new GuideProfileTagAdapter();
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -103,7 +139,7 @@ public class GuideProfileFragment extends Fragment {
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    interface OnFragmentInteractionListener {
+    public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }

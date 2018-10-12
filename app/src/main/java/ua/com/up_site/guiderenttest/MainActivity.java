@@ -9,8 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-public class MainActivity  extends AppCompatActivity
-implements TopGuidesFragment.OnFragmentInteractionListener{
+import ua.com.up_site.guiderenttest.TopGuidesPackage.GuideProfileFragment;
+
+public class MainActivity extends AppCompatActivity
+        implements TopGuidesFragment.OnFragmentInteractionListener,
+        GuideProfileFragment.OnFragmentInteractionListener {
     private FragmentTransaction mFragmentTransaction;
     private TopGuidesFragment mTopGuidesFragment;
 
@@ -27,7 +30,8 @@ implements TopGuidesFragment.OnFragmentInteractionListener{
                             mFragmentTransaction.replace(R.id.content, mTopGuidesFragment);
                             mFragmentTransaction.commit();
                             return true;
-                        default: return false;
+                        default:
+                            return false;
                     }
                 }
             };

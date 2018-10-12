@@ -1,5 +1,6 @@
 package ua.com.up_site.guiderenttest;
 
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import ua.com.up_site.guiderenttest.TopGuidesPackage.GuideInfo;
+import ua.com.up_site.guiderenttest.TopGuidesPackage.GuideProfileFragment;
 import ua.com.up_site.guiderenttest.TopGuidesPackage.GuidesAdapter;
 
 
@@ -34,6 +36,7 @@ public class TopGuidesFragment extends Fragment {
 
     private GridLayoutManager mLayoutManager;
 
+    private FragmentTransaction mFragmentTransaction;
 
     private OnFragmentInteractionListener mListener;
 
@@ -67,13 +70,29 @@ public class TopGuidesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_top_guides, container, false);
         RecyclerView rvRecyclerView = rootView.findViewById(R.id.guides_recycler_view);
         //Создаём двадцать гидов
         guideInfoList = GuideInfo.createGuideList(20);
-        //Из них создаём адаптер...
-        final GuidesAdapter adapter = new GuidesAdapter(guideInfoList);
+        //Из них создаём адаптер, назначаем ему OnClickListener, интерфейс которого я описал внутри адаптера...
+        final GuidesAdapter adapter = new GuidesAdapter(guideInfoList, new GuidesAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(GuideInfo item) {
+                GuideProfileFragment mGuideProfileFragment = new GuideProfileFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("GuideInfoItem", item);
+                mGuideProfileFragment.setArguments(bundle);
+
+                mFragmentTransaction = getFragmentManager().beginTransaction();
+
+                mFragmentTransaction.replace(R.id.content, mGuideProfileFragment);
+                mFragmentTransaction.commit();
+            }
+        });
         //...и прикрепляем его
         rvRecyclerView.setAdapter(adapter);
 
@@ -126,6 +145,7 @@ public class TopGuidesFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this

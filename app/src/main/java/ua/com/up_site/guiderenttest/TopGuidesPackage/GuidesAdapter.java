@@ -15,13 +15,19 @@ import ua.com.up_site.guiderenttest.R;
 
 //Адаптер для RecyclerView в топе гидов.
 
-public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewHolder>  {
+public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewHolder> {
 
     private List<GuideInfo> mGuideInfo;
 
+    public interface OnItemClickListener {
+        void onItemClick(GuideInfo item);
+    }
 
-    public GuidesAdapter(List<GuideInfo> guideInfoList) {
+    private final OnItemClickListener listener;
+
+    public GuidesAdapter(List<GuideInfo> guideInfoList, OnItemClickListener _listener) {
         this.mGuideInfo = guideInfoList;
+        this.listener = _listener;
     }
 
     @NonNull
@@ -37,6 +43,7 @@ public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewH
 
     @Override
     public void onBindViewHolder(@NonNull GuidesAdapter.GuideViewHolder viewHolder, int position) {
+        viewHolder.bind(mGuideInfo.get(position), listener);
         GuideInfo guideInfo = mGuideInfo.get(position);
 
         viewHolder.nameTextView.setText(guideInfo.getName());
@@ -50,6 +57,8 @@ public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewH
         return mGuideInfo.size();
     }
 
+
+
     class GuideViewHolder extends RecyclerView.ViewHolder {
 
         TextView nameTextView;
@@ -62,6 +71,14 @@ public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewH
             ageTextView = itemView.findViewById(R.id.tvAge);
             nameTextView = itemView.findViewById(R.id.tvName);
             guideProfileImage = itemView.findViewById(R.id.guideProfileImage);
+        }
+
+        public void bind(final GuideInfo _item, final OnItemClickListener _listener) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    _listener.onItemClick(_item);
+                }
+            });
         }
     }
 
