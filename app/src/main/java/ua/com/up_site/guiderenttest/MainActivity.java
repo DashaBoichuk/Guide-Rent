@@ -9,13 +9,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import ua.com.up_site.guiderenttest.MapPackage.MapFragment;
 import ua.com.up_site.guiderenttest.TopGuidesPackage.GuideProfileFragment;
 
 public class MainActivity extends AppCompatActivity
         implements TopGuidesFragment.OnFragmentInteractionListener,
-        GuideProfileFragment.OnFragmentInteractionListener {
+        GuideProfileFragment.OnFragmentInteractionListener,
+        MapFragment.OnFragmentInteractionListener {
     private FragmentTransaction mFragmentTransaction;
     private TopGuidesFragment mTopGuidesFragment;
+    private MapFragment mMapFragment;
 
     private FrameLayout content;
 
@@ -28,6 +31,11 @@ public class MainActivity extends AppCompatActivity
                     switch (menuItem.getItemId()) {
                         case R.id.navigation_top:
                             mFragmentTransaction.replace(R.id.content, mTopGuidesFragment);
+                            mFragmentTransaction.commit();
+                            return true;
+
+                        case R.id.navigation_route:
+                            mFragmentTransaction.replace(R.id.content, mMapFragment);
                             mFragmentTransaction.commit();
                             return true;
                         default:
@@ -46,6 +54,7 @@ public class MainActivity extends AppCompatActivity
         content = findViewById(R.id.content);
 
         mTopGuidesFragment = new TopGuidesFragment();
+        mMapFragment = new MapFragment();
     }
 
     @Override

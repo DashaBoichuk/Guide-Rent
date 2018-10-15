@@ -10,6 +10,7 @@
     <string name="interests_title">Interests</string>
     <string name="GuideName_title">Ann</string>
     <string name="service_title">Service</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDd2M4oPTPOVDzh594aejodatGuebhjFEE</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
