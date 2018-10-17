@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapPackage.MapFragment">
+    tools:context=".MapPackage.MapFragmentTest">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapView"
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        class="com.google.android.gms.maps.SupportMapFragment"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp" />
+        android:layout_height="match_parent"/>
 
     <SearchView
         android:id="@+id/SearchViewMap"

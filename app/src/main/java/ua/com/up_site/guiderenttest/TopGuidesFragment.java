@@ -1,10 +1,9 @@
 package ua.com.up_site.guiderenttest;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -36,7 +35,7 @@ public class TopGuidesFragment extends Fragment {
 
     private GridLayoutManager mLayoutManager;
 
-    private FragmentTransaction mFragmentTransaction;
+    private android.support.v4.app.FragmentTransaction mFragmentTransaction;
 
     private OnFragmentInteractionListener mListener;
 
