@@ -1,6 +1,5 @@
 package ua.com.up_site.guiderenttest;
 
-import android.app.FragmentTransaction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,16 +8,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import ua.com.up_site.guiderenttest.MapPackage.MapFragment;
+import ua.com.up_site.guiderenttest.MapPackage.MapFragmentTest;
 import ua.com.up_site.guiderenttest.TopGuidesPackage.GuideProfileFragment;
 
 public class MainActivity extends AppCompatActivity
         implements TopGuidesFragment.OnFragmentInteractionListener,
         GuideProfileFragment.OnFragmentInteractionListener,
-        MapFragment.OnFragmentInteractionListener {
-    private FragmentTransaction mFragmentTransaction;
+        MapFragmentTest.OnFragmentInteractionListener {
     private TopGuidesFragment mTopGuidesFragment;
-    private MapFragment mMapFragment;
+    private MapFragmentTest mMapFragmentTest;
 
     private FrameLayout content;
 
@@ -26,7 +24,7 @@ public class MainActivity extends AppCompatActivity
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    mFragmentTransaction = getFragmentManager().beginTransaction();
+                    android.support.v4.app.FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
 
                     switch (menuItem.getItemId()) {
                         case R.id.navigation_top:
@@ -35,7 +33,7 @@ public class MainActivity extends AppCompatActivity
                             return true;
 
                         case R.id.navigation_route:
-                            mFragmentTransaction.replace(R.id.content, mMapFragment);
+                            mFragmentTransaction.replace(R.id.content, mMapFragmentTest);
                             mFragmentTransaction.commit();
                             return true;
                         default:
@@ -54,7 +52,7 @@ public class MainActivity extends AppCompatActivity
         content = findViewById(R.id.content);
 
         mTopGuidesFragment = new TopGuidesFragment();
-        mMapFragment = new MapFragment();
+        mMapFragmentTest = new MapFragmentTest();
     }
 
     @Override
