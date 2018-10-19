@@ -12,9 +12,9 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import ua.com.up_site.guiderenttest.TopGuidesPackage.GuideInfo;
-import ua.com.up_site.guiderenttest.TopGuidesPackage.GuideProfileFragment;
-import ua.com.up_site.guiderenttest.TopGuidesPackage.GuidesAdapter;
+import ua.com.up_site.guiderenttest.top_guides.GuideInfo;
+import ua.com.up_site.guiderenttest.top_guides.GuideProfileFragment;
+import ua.com.up_site.guiderenttest.top_guides.GuidesAdapter;
 
 
 /**

@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest.PlacePackage;
+package ua.com.up_site.guiderenttest.place;
 
 import android.content.Context;
 import android.net.Uri;

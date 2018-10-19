@@ -21,4 +21,9 @@
         <item name="android:background">@drawable/rounded_shape_white</item>
     </style>
 
+    <style name="AppTheme.RoundedEditTextWhite" parent="Widget.AppCompat.EditText">
+        <item name="android:background">@drawable/rounded_shape_white_filled</item>
+    </style>
+
+
 </resources>

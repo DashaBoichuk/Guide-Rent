@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest.LoginPagePackage;
+package ua.com.up_site.guiderenttest.login_page;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;

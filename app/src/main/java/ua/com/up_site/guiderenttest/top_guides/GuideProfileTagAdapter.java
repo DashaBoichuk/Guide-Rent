@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest.TopGuidesPackage;
+package ua.com.up_site.guiderenttest.top_guides;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

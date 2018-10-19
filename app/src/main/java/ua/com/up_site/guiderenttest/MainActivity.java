@@ -9,8 +9,8 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import ua.com.up_site.guiderenttest.LocationPackage.PlaceFragment;
-import ua.com.up_site.guiderenttest.MapPackage.MapFragmentTest;
-import ua.com.up_site.guiderenttest.TopGuidesPackage.GuideProfileFragment;
+import ua.com.up_site.guiderenttest.map.MapFragmentTest;
+import ua.com.up_site.guiderenttest.top_guides.GuideProfileFragment;
 
 public class MainActivity extends AppCompatActivity
         implements TopGuidesFragment.OnFragmentInteractionListener,
