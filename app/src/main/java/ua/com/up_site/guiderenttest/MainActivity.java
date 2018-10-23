@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import ua.com.up_site.guiderenttest.LocationPackage.PlaceFragment;
+import ua.com.up_site.guiderenttest.place.PlaceFragment;
 import ua.com.up_site.guiderenttest.map.MapFragmentTest;
 import ua.com.up_site.guiderenttest.top_guides.GuideProfileFragment;
 
