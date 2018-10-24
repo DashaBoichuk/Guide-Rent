@@ -10,15 +10,15 @@
 
     <FrameLayout
         android:id="@+id/content"
-
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
+        app:itemIconTint="@drawable/nav_bar_style"
+        app:itemTextColor="@drawable/nav_bar_style"
         android:background="@color/colorBg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/navigation">
-
     </android.support.design.widget.BottomNavigationView>
 
 </LinearLayout>
