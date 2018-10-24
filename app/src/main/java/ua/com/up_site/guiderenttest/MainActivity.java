@@ -8,19 +8,25 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
-import ua.com.up_site.guiderenttest.LocationPackage.PlaceFragment;
+import ua.com.up_site.guiderenttest.place.PlaceEditFragment;
+import ua.com.up_site.guiderenttest.place.PlaceFragment;
 import ua.com.up_site.guiderenttest.map.MapFragmentTest;
+import ua.com.up_site.guiderenttest.test.NetworkingTestFragment;
 import ua.com.up_site.guiderenttest.top_guides.GuideProfileFragment;
 
 public class MainActivity extends AppCompatActivity
         implements TopGuidesFragment.OnFragmentInteractionListener,
         GuideProfileFragment.OnFragmentInteractionListener,
         MapFragmentTest.OnFragmentInteractionListener,
-        PlaceFragment.OnFragmentInteractionListener{
+        PlaceFragment.OnFragmentInteractionListener,
+        PlaceEditFragment.OnFragmentInteractionListener,
+        NetworkingTestFragment.OnFragmentInteractionListener {
 
     private PlaceFragment mPlaceFragment;
     private TopGuidesFragment mTopGuidesFragment;
     private MapFragmentTest mMapFragmentTest;
+    private PlaceEditFragment mPlaceEditFragment;
+    private NetworkingTestFragment mNetworkingTestFragment;
 
     private FrameLayout content;
 
@@ -45,6 +51,13 @@ public class MainActivity extends AppCompatActivity
                             mFragmentTransaction.replace(R.id.content, mPlaceFragment);
                             mFragmentTransaction.commit();
                             return true;
+                        case R.id.navigation_add:
+                            mFragmentTransaction.replace(R.id.content, mPlaceEditFragment);
+                            mFragmentTransaction.commit();
+                            return true;
+                        case R.id.navigation_profile:
+                            mFragmentTransaction.replace(R.id.content, mNetworkingTestFragment);
+                            mFragmentTransaction.commit();
                         default:
                             return false;
                     }
@@ -63,6 +76,8 @@ public class MainActivity extends AppCompatActivity
         mPlaceFragment = new PlaceFragment();
         mTopGuidesFragment = new TopGuidesFragment();
         mMapFragmentTest = new MapFragmentTest();
+        mPlaceEditFragment = new PlaceEditFragment();
+        mNetworkingTestFragment = new NetworkingTestFragment();
 
         android.support.v4.app.FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.replace(R.id.content, mPlaceFragment);

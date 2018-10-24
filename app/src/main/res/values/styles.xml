@@ -25,5 +25,9 @@
         <item name="android:background">@drawable/rounded_shape_white_filled</item>
     </style>
 
+    <style name="AppTheme.RoundedSpinnerWhite" parent="Widget.AppCompat.Spinner.DropDown">
+        <item name="android:background">@drawable/rounded_white_filled_spinner</item>
+    </style>
+
 
 </resources>

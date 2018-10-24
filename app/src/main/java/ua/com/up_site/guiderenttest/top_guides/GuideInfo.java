@@ -12,6 +12,8 @@ public class GuideInfo implements Parcelable {
     private String age;
     private ArrayList<String> interests = new ArrayList<>();
     private ArrayList<String> service = new ArrayList<>();
+
+    //placeholder
     private ArrayList<String> randomInterests = new ArrayList<>();
 
     private void setRandomInterests(){

@@ -1,19 +1,78 @@
-package ua.com.up_site.guiderenttest.LocationPackage;
+package ua.com.up_site.guiderenttest.place;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+
+import java.util.ArrayList;
+import java.util.Random;
+
 public class PlaceInfo implements Parcelable {
 
+    //Google data
+    @Expose(serialize = false)
     private String phone;
+    @Expose(serialize = false)
     private String webSite;
+    @Expose(serialize = false)
     private String address;
+    @Expose(serialize = false)
     private String hoursOfWork;
+    @Expose(serialize = false)
     private String description;
+
+    //Get from server
+    @Expose(serialize = false)
     private Double averageMark;
+    @Expose(serialize = false)
     private Integer countOfMarks;
 
-    public PlaceInfo(String phone, String webSite, String address, String hoursOfWork, String description, Double averageMark, Integer countOfMarks) {
+    //ServerData
+    private String name;
+    private String comment;
+    //private Bitmap image;
+    private int category;
+    private int google_id;
+
+
+    //From server
+    public PlaceInfo(Double averageMark, String name, String comment, int category, int google_id) {
+        this.averageMark = averageMark;
+        this.name = name;
+        this.comment = comment;
+        // this.image = image;
+        this.category = category;
+        this.google_id = google_id;
+    }
+
+
+    //To server for testing!
+    public PlaceInfo() {
+        Random r = new Random();
+        ArrayList<String> randomNames = new ArrayList<>();
+        ArrayList<String> randomComment = new ArrayList<>();
+
+        randomNames.add("Оперный театр");
+        randomNames.add("Театр, но не оперный");
+        randomNames.add("Оперный, но не театр");
+
+        this.name = randomNames.get(r.nextInt(2));
+
+        randomComment.add("Очень хорошо, ребята");
+        randomComment.add("Чётко");
+        randomComment.add("Резко");
+
+        this.comment = randomComment.get(r.nextInt(2));
+
+        this.category = r.nextInt(5);
+
+        this.google_id = r.nextInt(235792);
+
+    }
+
+    //Для тестирования в дизайне
+    PlaceInfo(String phone, String webSite, String address, String hoursOfWork, String description, Double averageMark, Integer countOfMarks) {
         this.phone = phone;
         this.webSite = webSite;
         this.address = address;
@@ -24,7 +83,7 @@ public class PlaceInfo implements Parcelable {
     }
 
 
-    protected PlaceInfo(Parcel in) {
+    private PlaceInfo(Parcel in) {
         phone = in.readString();
         webSite = in.readString();
         address = in.readString();

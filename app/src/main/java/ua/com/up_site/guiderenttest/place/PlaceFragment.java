@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest.LocationPackage;
+package ua.com.up_site.guiderenttest.place;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -87,7 +87,7 @@ public class PlaceFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_place, container, false);
 
-        final PlaceInfo placeInfo = new PlaceInfo("+38 066 121 12 12", "", "Г.ОДЕССА. УЛ. Б.АРНАУТСКАЯ 198", "10:00-23:00", "ТИП КУХНИ: ЕВРОПЕЙСКАЯ", 4.5, 234);
+        final ua.com.up_site.guiderenttest.place.PlaceInfo placeInfo = new ua.com.up_site.guiderenttest.place.PlaceInfo("+38 066 121 12 12", "", "Г.ОДЕССА. УЛ. Б.АРНАУТСКАЯ 198", "10:00-23:00", "ТИП КУХНИ: ЕВРОПЕЙСКАЯ", 4.5, 234);
 
         TextView phone_tv = view.findViewById(R.id.phonetv3);
         phone_tv.setText("ТЕЛ: " + placeInfo.getPhone());
