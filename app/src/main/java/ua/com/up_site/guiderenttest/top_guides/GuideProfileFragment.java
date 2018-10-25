@@ -1,6 +1,7 @@
 package ua.com.up_site.guiderenttest.top_guides;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CalendarView;
 import android.widget.Toast;
 
 import ua.com.up_site.guiderenttest.R;
@@ -36,6 +38,9 @@ public class GuideProfileFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private GuideInfo guideInfoItem;
+
+
+    CalendarView calendarView;
 
     public GuideProfileFragment() {
         // Required empty public constructor
@@ -98,6 +103,8 @@ public class GuideProfileFragment extends Fragment {
         rvRecyclerViewService.setLayoutManager(mLayoutManagerService);
 
 
+        calendarView = rootView.findViewById(R.id.GuideProfileCV);
+        calendarView.setBackgroundColor(Color.WHITE);
         //final GuideProfileTagAdapter serviceAdapter = new GuideProfileTagAdapter();
 
         return rootView;
