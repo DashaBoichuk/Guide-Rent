@@ -11,6 +11,9 @@
     <string name="GuideName_title">Ann</string>
     <string name="service_title">Service</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyDd2M4oPTPOVDzh594aejodatGuebhjFEE</string>
+    <string name="facebook_app_id">351730035585242</string>
+    <string name="fb_login_protocol_scheme">fb351730035585242</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

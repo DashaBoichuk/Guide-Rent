@@ -39,7 +39,10 @@ public class PlaceFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     private ViewFlipper simpleViewFlipper;
+    // private ViewFlipper TruitonFlipper;
     RatingBar ratingBar;
+    RatingBar oneStar;
+    // private float initialX;
     int[] images = {R.drawable.first, R.drawable.second, R.drawable.third};     // array of images
 
 
@@ -87,6 +90,41 @@ public class PlaceFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_place, container, false);
 
+      /*  view.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        initialX = event.getX();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        float finalX = event.getX();
+                        if (initialX > finalX) {
+                            if (TruitonFlipper.getDisplayedChild() == 1)
+                                break;
+
+				*//*TruitonFlipper.setInAnimation(this, R.anim.in_right);
+				TruitonFlipper.setOutAnimation(this, R.anim.out_left);*//*
+
+                            TruitonFlipper.showNext();
+                        } else {
+                            if (TruitonFlipper.getDisplayedChild() == 0)
+                                break;
+
+				*//*TruitonFlipper.setInAnimation(this, R.anim.in_left);
+				TruitonFlipper.setOutAnimation(this, R.anim.out_right);*//*
+
+                            TruitonFlipper.showPrevious();
+                        }
+                        break;
+                }
+                return false;
+            }
+        });*/
+
+     /*   TruitonFlipper = view.findViewById(R.id.flipper);
+        TruitonFlipper.setInAnimation(getActivity(), android.R.anim.fade_in);
+        TruitonFlipper.setOutAnimation(getActivity(), android.R.anim.fade_out);*/
         final ua.com.up_site.guiderenttest.place.PlaceInfo placeInfo = new ua.com.up_site.guiderenttest.place.PlaceInfo("+38 066 121 12 12", "", "Г.ОДЕССА. УЛ. Б.АРНАУТСКАЯ 198", "10:00-23:00", "ТИП КУХНИ: ЕВРОПЕЙСКАЯ", 4.5, 234);
 
         TextView phone_tv = view.findViewById(R.id.phonetv3);
@@ -124,7 +162,7 @@ public class PlaceFragment extends Fragment {
         //  flipperLayout = (FlipperLayout)findViewById(R.id.flipper_layout);
         //setLayout();
 
-        final TextView textView = view.findViewById(R.id.descriptiontv3);
+
 
         ratingBar = view.findViewById(R.id.ratingBar2);
         //   ratingBar
@@ -135,11 +173,17 @@ public class PlaceFragment extends Fragment {
             }
         });
 
+        oneStar = view.findViewById(R.id.oneStar);
+        oneStar.setRating(5f);
+
         LayerDrawable stars = (LayerDrawable) ratingBar.getProgressDrawable();
         stars.getDrawable(2).setColorFilter(Color.parseColor("#fcfcfc"), PorterDuff.Mode.SRC_ATOP);
 
         return view;
     }
+
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
