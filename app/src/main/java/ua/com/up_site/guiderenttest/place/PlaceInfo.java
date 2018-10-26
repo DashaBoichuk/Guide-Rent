@@ -20,7 +20,7 @@ public class PlaceInfo implements Parcelable {
     @Expose(serialize = false)
     private String hoursOfWork;
     @Expose(serialize = false)
-    private String description;
+    private String comment;
 
     //Get from server
     @Expose(serialize = false)
@@ -30,7 +30,7 @@ public class PlaceInfo implements Parcelable {
 
     //ServerData
     private String name;
-    private String comment;
+    private String description;
     //private Bitmap image;
     private int category;
     private int google_id;
@@ -63,7 +63,7 @@ public class PlaceInfo implements Parcelable {
         randomComment.add("Чётко");
         randomComment.add("Резко");
 
-        this.comment = randomComment.get(r.nextInt(2));
+        this.description = randomComment.get(r.nextInt(2));
 
         this.category = r.nextInt(5);
 
@@ -72,12 +72,12 @@ public class PlaceInfo implements Parcelable {
     }
 
     //Для тестирования в дизайне
-    PlaceInfo(String phone, String webSite, String address, String hoursOfWork, String description, Double averageMark, Integer countOfMarks) {
+    PlaceInfo(String phone, String webSite, String address, String hoursOfWork, String comment, Double averageMark, Integer countOfMarks) {
         this.phone = phone;
         this.webSite = webSite;
         this.address = address;
         this.hoursOfWork = hoursOfWork;
-        this.description = description;
+        this.comment = comment;
         this.averageMark = averageMark;
         this.countOfMarks = countOfMarks;
     }
@@ -88,7 +88,7 @@ public class PlaceInfo implements Parcelable {
         webSite = in.readString();
         address = in.readString();
         hoursOfWork = in.readString();
-        description = in.readString();
+        comment = in.readString();
         if (in.readByte() == 0) {
             averageMark = null;
         } else {
@@ -145,12 +145,12 @@ public class PlaceInfo implements Parcelable {
         this.hoursOfWork = hoursOfWork;
     }
 
-    public String getDescription() {
-        return description;
+    public String getComment() {
+        return comment;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     public Double getAverageMark() {
@@ -182,7 +182,7 @@ public class PlaceInfo implements Parcelable {
         dest.writeString(webSite);
         dest.writeString(address);
         dest.writeString(hoursOfWork);
-        dest.writeString(description);
+        dest.writeString(comment);
         if (averageMark == null) {
             dest.writeByte((byte) 0);
         } else {

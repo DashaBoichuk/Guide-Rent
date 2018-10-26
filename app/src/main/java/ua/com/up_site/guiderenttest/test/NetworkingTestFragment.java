@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import ua.com.up_site.guiderenttest.R;
 import ua.com.up_site.guiderenttest.api.APIWorker;
 import ua.com.up_site.guiderenttest.place.PlaceInfo;
@@ -85,7 +88,13 @@ public class NetworkingTestFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 placeInfo = new PlaceInfo();
-                Toast.makeText(getActivity(), placeInfo.toString(), Toast.LENGTH_SHORT).show();
+                GsonBuilder gsonRequestBuilder = new GsonBuilder();
+                gsonRequestBuilder.setPrettyPrinting();
+                final Gson gsonRequest = gsonRequestBuilder.create();
+
+                //Java to JSON
+                final String jsonPlace = gsonRequest.toJson(placeInfo);
+                Toast.makeText(getActivity(), jsonPlace, Toast.LENGTH_SHORT).show();
             }
         });
 

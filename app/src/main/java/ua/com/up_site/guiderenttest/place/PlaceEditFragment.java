@@ -83,12 +83,14 @@ public class PlaceEditFragment extends Fragment {
 
     //В будущем в этом классе нужно будет определять категории (из БД?)
     private void initializeCategories() {
-        categories.add("Cafe");
-        categories.add("Restaurant");
-        categories.add("Monument");
-        categories.add("Beach");
-        categories.add("Park");
-        categories.add("Other");
+        if (categories.isEmpty()) {
+            categories.add("Cafe");
+            categories.add("Restaurant");
+            categories.add("Monument");
+            categories.add("Beach");
+            categories.add("Park");
+            categories.add("Other");
+        }
     }
 
 

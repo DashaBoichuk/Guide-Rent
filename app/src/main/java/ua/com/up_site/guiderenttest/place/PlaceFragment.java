@@ -136,7 +136,7 @@ public class PlaceFragment extends Fragment {
         TextView hours_tv = view.findViewById(R.id.hourstv3);
         hours_tv.setText("ОТКРЫТО: " + placeInfo.getHoursOfWork());
         TextView description_tv = view.findViewById(R.id.descriptiontv3);
-        description_tv.setText("" + placeInfo.getDescription());
+        description_tv.setText("" + placeInfo.getComment());
         TextView review_tv =view.findViewById(R.id.reviewtv);
         review_tv.setText("ОТЗЫВЫ " + placeInfo.getCountOfMarks().toString());
         simpleViewFlipper = view.findViewById(R.id.simpleViewFlipper2);
