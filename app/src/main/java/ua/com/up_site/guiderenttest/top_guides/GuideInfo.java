@@ -6,10 +6,10 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.Random;
 
+import ua.com.up_site.guiderenttest.user.UserInfo;
+
 //Placeholder для класса гида. Используйте его для профиля
-public class GuideInfo implements Parcelable {
-    private String name;
-    private String age;
+public class GuideInfo extends UserInfo implements Parcelable {
     private ArrayList<String> interests = new ArrayList<>();
     private ArrayList<String> service = new ArrayList<>();
 
@@ -26,10 +26,9 @@ public class GuideInfo implements Parcelable {
 
 
     private GuideInfo(String name, String age) {
+        super(name, age);
         setRandomInterests();
         Random r = new Random();
-        this.name = name;
-        this.age = age;
         //Placeholder заполнение интересов и сервисов
         for (int i = 0; i < 9; i++) {
             interests.add(i, randomInterests.get(r.nextInt(5)));
@@ -59,21 +58,6 @@ public class GuideInfo implements Parcelable {
         }
     };
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    String getAge() {
-        return age;
-    }
-
-    public void setAge(String age) {
-        this.age = age;
-    }
 
     ArrayList<String> getInterests() {
         return interests;
