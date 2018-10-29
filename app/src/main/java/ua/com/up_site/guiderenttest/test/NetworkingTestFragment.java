@@ -83,6 +83,7 @@ public class NetworkingTestFragment extends Fragment {
         generate = rootView.findViewById(R.id.testButtonGenerate);
         send = rootView.findViewById(R.id.testButtonSend);
         lastResponse = rootView.findViewById(R.id.lastResponseTV);
+        placeInfo = new PlaceInfo();
 
         generate.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -114,6 +114,7 @@ public class PlaceEditFragment extends Fragment {
                                 imageView.setImageBitmap(r.getBitmap());
                                 String imagefile = r.getPath();
                                 try {
+                                    //TODO: violation of separation of concerns principle
                                     Geocoder geocoder;
                                     geocoder = new Geocoder(getActivity(), Locale.getDefault());
                                     ExifInterface exifInterface = new ExifInterface(imagefile);
