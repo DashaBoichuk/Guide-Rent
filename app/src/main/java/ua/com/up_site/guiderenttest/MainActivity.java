@@ -7,6 +7,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import ua.com.up_site.guiderenttest.place.PlaceEditFragment;
 import ua.com.up_site.guiderenttest.place.PlaceFragment;

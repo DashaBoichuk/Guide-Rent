@@ -46,13 +46,7 @@
         <item name="android:background">@drawable/rounded_white_filled_spinner</item>
     </style>
 
-    <style name="FacebookLoginButton">
 
-       <!-- <item name="android:background">@drawable/facebook_logo</item>-->
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
-        <item name="android:layout_gravity">center_horizontal</item>
-    </style>
 
 
 </resources>
