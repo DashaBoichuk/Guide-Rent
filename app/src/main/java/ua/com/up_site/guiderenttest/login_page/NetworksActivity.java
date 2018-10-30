@@ -30,7 +30,7 @@ public class NetworksActivity extends AppCompatActivity {
 
 
 
-        loginButton = (LoginButton) findViewById(R.id.login_button);
+        loginButton = findViewById(R.id.login_fb_button);
         loginButton.setReadPermissions(Arrays.asList(EMAIL));
 
         callbackManager = CallbackManager.Factory.create();
@@ -59,7 +59,7 @@ public class NetworksActivity extends AppCompatActivity {
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
 
         //вход, например с помощью элемента OnClickListener индивидуально настроенной кнопки:
-      //  LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+       LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
 
     }
     @Override
