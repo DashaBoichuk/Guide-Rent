@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity
 
 
         android.support.v4.app.FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        mFragmentTransaction.replace(R.id.content, mPlaceFragment);
+        mFragmentTransaction.replace(R.id.content, locationFragment);
         mFragmentTransaction.commit();
     }
 
@@ -108,12 +108,12 @@ public class MainActivity extends AppCompatActivity
                             return true;
 
                         case R.id.navigation_route:
-                            mFragmentTransaction.replace(R.id.content, mMapFragmentTest);
+                            mFragmentTransaction.replace(R.id.content, routeFragment);
                             mFragmentTransaction.commit();
                             return true;
 
                         case R.id.navigation_location:
-                            mFragmentTransaction.replace(R.id.content, mPlaceFragment);
+                            mFragmentTransaction.replace(R.id.content, locationFragment);
                             mFragmentTransaction.commit();
                             return true;
                         case R.id.navigation_add:
@@ -145,9 +145,9 @@ public class MainActivity extends AppCompatActivity
         Class fragmentClass = null;
 
         if (id == R.id.nav_draw_routes) {
-            fragmentClass = RouteFragment.class;
+            fragmentClass = MapFragmentTest.class;
         } else if (id == R.id.nav_draw_locations) {
-            fragmentClass = LocationFragment.class;
+            fragmentClass = PlaceFragment.class;
         } else if (id == R.id.nav_draw_institutions) {
             fragmentClass = InstitutionFragment.class;
 
