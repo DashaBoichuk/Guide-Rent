@@ -1,8 +1,10 @@
 package ua.com.up_site.guiderenttest.test;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +13,15 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 import ua.com.up_site.guiderenttest.api.APIWorker;
+import ua.com.up_site.guiderenttest.login_page.LoginActivity;
 import ua.com.up_site.guiderenttest.place.PlaceInfo;
 
 /**
@@ -35,6 +40,7 @@ public class NetworkingTestFragment extends Fragment {
 
     Button generate;
     Button send;
+    Button sign_out;
     TextView lastResponse;
     PlaceInfo placeInfo;
     String response;
@@ -89,8 +95,15 @@ public class NetworkingTestFragment extends Fragment {
         generate = rootView.findViewById(R.id.testButtonGenerate);
         send = rootView.findViewById(R.id.testButtonSend);
         lastResponse = rootView.findViewById(R.id.lastResponseTV);
+        sign_out = rootView.findViewById(R.id.sign_out_button);
         placeInfo = new PlaceInfo();
 
+        sign_out.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signOut();
+            }
+        });
         generate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -147,6 +160,17 @@ public class NetworkingTestFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private void signOut() {
+        UserGoogleAccount.client.signOut()
+                .addOnCompleteListener(getActivity(), new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent activityChangeIntent = new Intent(getActivity(), LoginActivity.class);
+                        startActivity(activityChangeIntent);
+                    }
+                });
     }
 
     /**

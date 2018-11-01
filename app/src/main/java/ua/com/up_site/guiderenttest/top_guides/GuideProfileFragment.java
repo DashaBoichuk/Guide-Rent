@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
+import ua.com.up_site.guiderenttest.user_model.GuideInfo;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -72,7 +72,7 @@ public class PlaceInfo implements Parcelable {
     }
 
     //Для тестирования в дизайне
-    PlaceInfo(String phone, String webSite, String address, String hoursOfWork, String comment, Double averageMark, Integer countOfMarks) {
+    public PlaceInfo(String phone, String webSite, String address, String hoursOfWork, String comment, Double averageMark, Integer countOfMarks) {
         this.phone = phone;
         this.webSite = webSite;
         this.address = address;
