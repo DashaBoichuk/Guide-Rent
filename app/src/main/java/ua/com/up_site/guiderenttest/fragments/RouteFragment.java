@@ -17,6 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 import ua.com.up_site.guiderenttest.adapters.RouteAdapter;
 import ua.com.up_site.guiderenttest.models.CommonData;
@@ -39,6 +40,8 @@ public class RouteFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_route, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        ((MainActivity) getActivity()).toolbar_title.setText("Маршруты");
 
         searchViewRoute.setBackgroundResource(R.drawable.frame);
 

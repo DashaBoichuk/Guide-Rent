@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.CalendarView;
 import android.widget.Toast;
 
+import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 
 /**
@@ -80,6 +81,9 @@ public class GuideProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
+        ((MainActivity) getActivity()).toolbar_title.setText("Guide Profile");
 
         Bundle bundle = this.getArguments();
         guideInfoItem = bundle.getParcelable("GuideInfoItem");

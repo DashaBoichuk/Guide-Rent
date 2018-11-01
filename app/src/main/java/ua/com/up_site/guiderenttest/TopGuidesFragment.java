@@ -65,6 +65,11 @@ public class TopGuidesFragment extends Fragment {
 
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_top_guides, container, false);
+
+        ((MainActivity) getActivity()).toolbar_title.setText("Top Guides");
+
+
+
         RecyclerView rvRecyclerView = rootView.findViewById(R.id.guides_recycler_view);
         //Создаём двадцать гидов
         guideInfoList = GuideInfo.createGuideList(20);

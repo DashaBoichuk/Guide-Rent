@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,8 +46,9 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.bottomNavigationView)
     BottomNavigationView bottomNavigationView;
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
+    public Toolbar toolbar;
+    @BindView(R.id.toolbar_title)
+    public TextView toolbar_title;
 
     private PlaceFragment mPlaceFragment;
     private TopGuidesFragment mTopGuidesFragment;
@@ -58,17 +60,14 @@ public class MainActivity extends AppCompatActivity
     private RouteFragment routeFragment;
     private FrameLayout content;
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -93,7 +92,6 @@ public class MainActivity extends AppCompatActivity
         mFragmentTransaction.replace(R.id.content, locationFragment);
         mFragmentTransaction.commit();
     }
-
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -124,13 +122,11 @@ public class MainActivity extends AppCompatActivity
                             mFragmentTransaction.replace(R.id.content, mNetworkingTestFragment);
                             mFragmentTransaction.commit();
 
-
                         default:
                             return false;
                     }
                 }
             };
-
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -163,7 +159,6 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

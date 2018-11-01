@@ -21,6 +21,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 
 
@@ -89,6 +90,8 @@ public class PlaceFragment extends Fragment {
         // Inflate the layout for this fragment
 
         View view = inflater.inflate(R.layout.fragment_place, container, false);
+
+        ((MainActivity) getActivity()).toolbar_title.setText("Place");
 
       /*  view.setOnTouchListener(new View.OnTouchListener() {
             @Override
