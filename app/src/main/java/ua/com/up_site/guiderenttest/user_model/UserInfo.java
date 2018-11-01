@@ -1,17 +1,25 @@
-package ua.com.up_site.guiderenttest.user;
+package ua.com.up_site.guiderenttest.user_model;
+
+import java.util.ArrayList;
 
 public abstract class UserInfo {
+    String token;
     protected String name;
-    protected String age;
-    private String login;
+    String age;
+    String login;
+    String email;
+    float rating;
+    boolean sex;
+    boolean isBusy;
+    ArrayList<String> interests = new ArrayList<>();
 
 
-    protected UserInfo(String name, String age) {
+    UserInfo(String name, String age) {
         this.name = name;
         this.age = age;
     }
 
-    protected UserInfo() {
+    UserInfo() {
     }
 
     public String getName() {

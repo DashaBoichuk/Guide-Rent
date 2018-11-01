@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import ua.com.up_site.guiderenttest.R;
+import ua.com.up_site.guiderenttest.user_model.GuideInfo;
 
 //Адаптер для RecyclerView в топе гидов.
 

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import ua.com.up_site.guiderenttest.top_guides.TopGuidesFragment;
 import ua.com.up_site.guiderenttest.place.PlaceEditFragment;
 import ua.com.up_site.guiderenttest.place.PlaceFragment;
 import ua.com.up_site.guiderenttest.map.MapFragmentTest;
@@ -39,24 +40,29 @@ public class MainActivity extends AppCompatActivity
                     switch (menuItem.getItemId()) {
                         case R.id.navigation_top:
                             mFragmentTransaction.replace(R.id.content, mTopGuidesFragment);
+                            mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
 
                         case R.id.navigation_route:
                             mFragmentTransaction.replace(R.id.content, mMapFragmentTest);
+                            mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
 
                         case R.id.navigation_location:
                             mFragmentTransaction.replace(R.id.content, mPlaceFragment);
+                            mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
                         case R.id.navigation_add:
                             mFragmentTransaction.replace(R.id.content, mPlaceEditFragment);
+                            mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
                         case R.id.navigation_profile:
                             mFragmentTransaction.replace(R.id.content, mNetworkingTestFragment);
+                            mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                         default:
                             return false;

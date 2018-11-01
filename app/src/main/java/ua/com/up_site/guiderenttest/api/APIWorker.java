@@ -2,7 +2,6 @@ package ua.com.up_site.guiderenttest.api;
 
 import android.util.Log;
 
-import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -15,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import ua.com.up_site.guiderenttest.map.RouteData;
 import ua.com.up_site.guiderenttest.place.PlaceInfo;
 
 import static android.content.ContentValues.TAG;
@@ -64,30 +64,27 @@ public class APIWorker {
 
         //Принимаем response
         responseCode = con.getResponseCode();
-        Log.e("Networking","\nSending 'POST' request to URL : " + obj.toString() );
-        Log.e("Networking","Response Code : " + responseCode);
+        Log.e("Networking", "\nSending 'POST' request to URL : " + obj.toString());
+        Log.e("Networking", "Response Code : " + responseCode);
 
         try {
             BufferedReader in = new BufferedReader
                     (new InputStreamReader(con.getInputStream()));
             String inputLine;
             StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null){
+            while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
             responseData = response.toString();
             Log.w("Networking", responseData);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        int responseCodeFirstNumber = responseCode / 100;
-
-       return responseData;
+        return responseData;
     }
 
-    public static ArrayList<PlaceInfo> getPlacesInfo(final int sortIndex, final int portion ) throws IOException {
+    public static ArrayList<PlaceInfo> getPlacesInfo(final int sortIndex, final int portion) throws IOException {
         Log.e(TAG, "createPlace: INIT createPlace");
 
         URL obj = new URL(rootURL + "getplaces.php");
@@ -113,19 +110,17 @@ public class APIWorker {
             String inputLine;
             // TODO: Replaced StringBuffer with StringBuilder, test it!
             StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null){
+            while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
             responseData = response.toString();
             Log.w("Networking", responseData);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
 
         //TODO: json error and data handling
-
 
 
         return null;
@@ -135,7 +130,11 @@ public class APIWorker {
         return null;
     }
 
-    public static void addRoute(ArrayList<LatLng> route) throws IOException {
+    /**
+     * addroute.php is not ready!
+     */
+    public static void addRoute(RouteData route) throws IOException {
+        //TODO: add route class (and id variable to it) to define routes in database
         Log.e(TAG, "createPlace: INIT addroute");
         //Для сериализации обьекта сontact в формат JSON при запросе
         GsonBuilder gsonRequestBuilder = new GsonBuilder();
@@ -175,25 +174,22 @@ public class APIWorker {
 
         //Принимаем response
         responseCode = con.getResponseCode();
-        Log.e("Networking","\nSending 'POST' request to URL : " + obj.toString() );
-        Log.e("Networking","Response Code : " + responseCode);
+        Log.e("Networking", "\nSending 'POST' request to URL : " + obj.toString());
+        Log.e("Networking", "Response Code : " + responseCode);
 
         try {
             BufferedReader in = new BufferedReader
                     (new InputStreamReader(con.getInputStream()));
             String inputLine;
             StringBuilder response = new StringBuilder();
-            while ((inputLine = in.readLine()) != null){
+            while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
             responseData = response.toString();
             Log.w("Networking", responseData);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
-
-    //Hm
 }

@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest;
+package ua.com.up_site.guiderenttest.top_guides;
 
 import android.content.Context;
 import android.net.Uri;
@@ -12,9 +12,8 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import ua.com.up_site.guiderenttest.top_guides.GuideInfo;
-import ua.com.up_site.guiderenttest.top_guides.GuideProfileFragment;
-import ua.com.up_site.guiderenttest.top_guides.GuidesAdapter;
+import ua.com.up_site.guiderenttest.R;
+import ua.com.up_site.guiderenttest.user_model.GuideInfo;
 
 
 public class TopGuidesFragment extends Fragment {
@@ -79,7 +78,7 @@ public class TopGuidesFragment extends Fragment {
                 mGuideProfileFragment.setArguments(bundle);
 
                 mFragmentTransaction = getFragmentManager().beginTransaction();
-
+                mFragmentTransaction.addToBackStack(null);
                 mFragmentTransaction.replace(R.id.content, mGuideProfileFragment);
                 mFragmentTransaction.commit();
             }
