@@ -4,11 +4,25 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import ua.com.up_site.guiderenttest.top_guides.TopGuidesFragment;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import ua.com.up_site.guiderenttest.fragments.InstitutionFragment;
+import ua.com.up_site.guiderenttest.fragments.LocationFragment;
+import ua.com.up_site.guiderenttest.fragments.RouteFragment;
 import ua.com.up_site.guiderenttest.place.PlaceEditFragment;
 import ua.com.up_site.guiderenttest.place.PlaceFragment;
 import ua.com.up_site.guiderenttest.map.MapFragmentTest;
@@ -21,15 +35,64 @@ public class MainActivity extends AppCompatActivity
         MapFragmentTest.OnFragmentInteractionListener,
         PlaceFragment.OnFragmentInteractionListener,
         PlaceEditFragment.OnFragmentInteractionListener,
-        NetworkingTestFragment.OnFragmentInteractionListener {
+        NetworkingTestFragment.OnFragmentInteractionListener,
+        BottomNavigationView.OnNavigationItemSelectedListener,
+        NavigationView.OnNavigationItemSelectedListener {
+
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+    @BindView(R.id.bottomNavigationView)
+    BottomNavigationView bottomNavigationView;
+    @BindView(R.id.toolbar)
+    public Toolbar toolbar;
+    @BindView(R.id.toolbar_title)
+    public TextView toolbar_title;
 
     private PlaceFragment mPlaceFragment;
     private TopGuidesFragment mTopGuidesFragment;
     private MapFragmentTest mMapFragmentTest;
     private PlaceEditFragment mPlaceEditFragment;
     private NetworkingTestFragment mNetworkingTestFragment;
-
+    private InstitutionFragment institutionFragment;
+    private LocationFragment locationFragment;
+    private RouteFragment routeFragment;
     private FrameLayout content;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        content = findViewById(R.id.content);
+
+        mPlaceFragment = new PlaceFragment();
+        mTopGuidesFragment = new TopGuidesFragment();
+        mMapFragmentTest = new MapFragmentTest();
+        mPlaceEditFragment = new PlaceEditFragment();
+        mNetworkingTestFragment = new NetworkingTestFragment();
+        institutionFragment = new InstitutionFragment();
+        locationFragment = new LocationFragment();
+        routeFragment = new RouteFragment();
+
+
+        android.support.v4.app.FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        mFragmentTransaction.replace(R.id.content, locationFragment);
+        mFragmentTransaction.commit();
+    }
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -45,13 +108,13 @@ public class MainActivity extends AppCompatActivity
                             return true;
 
                         case R.id.navigation_route:
-                            mFragmentTransaction.replace(R.id.content, mMapFragmentTest);
+                            mFragmentTransaction.replace(R.id.content, routeFragment);
                             mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
 
                         case R.id.navigation_location:
-                            mFragmentTransaction.replace(R.id.content, mPlaceFragment);
+                            mFragmentTransaction.replace(R.id.content, locationFragment);
                             mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
@@ -64,34 +127,58 @@ public class MainActivity extends AppCompatActivity
                             mFragmentTransaction.replace(R.id.content, mNetworkingTestFragment);
                             mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
+
                         default:
                             return false;
                     }
                 }
             };
-//
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        BottomNavigationView bottomNavigationDrawer = findViewById(R.id.navigation);
-        bottomNavigationDrawer.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        content = findViewById(R.id.content);
-
-        mPlaceFragment = new PlaceFragment();
-        mTopGuidesFragment = new TopGuidesFragment();
-        mMapFragmentTest = new MapFragmentTest();
-        mPlaceEditFragment = new PlaceEditFragment();
-        mNetworkingTestFragment = new NetworkingTestFragment();
-
-        android.support.v4.app.FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        mFragmentTransaction.replace(R.id.content, mPlaceFragment);
-        mFragmentTransaction.commit();
-    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        int id = menuItem.getItemId();
+
+        Fragment fragment = null;
+        Class fragmentClass = null;
+
+        if (id == R.id.nav_draw_routes) {
+            fragmentClass = MapFragmentTest.class;
+        } else if (id == R.id.nav_draw_locations) {
+            fragmentClass = PlaceFragment.class;
+        } else if (id == R.id.nav_draw_institutions) {
+            fragmentClass = InstitutionFragment.class;
+
+        }
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.content, fragment).commit();
+
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

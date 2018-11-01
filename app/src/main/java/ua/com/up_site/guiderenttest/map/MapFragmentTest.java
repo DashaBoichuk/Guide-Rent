@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 
 import static android.content.ContentValues.TAG;
@@ -117,6 +118,7 @@ public class MapFragmentTest extends android.support.v4.app.Fragment implements 
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
+        ((MainActivity) getActivity()).toolbar_title.setText("Карта");
 
         if (mMapFragment == null) {
             mMapFragment = SupportMapFragment.newInstance();

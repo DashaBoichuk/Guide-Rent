@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 
 
@@ -99,6 +100,10 @@ public class PlaceEditFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootview = inflater.inflate(R.layout.fragment_place_edit, container, false);
+
+
+        ((MainActivity) getActivity()).toolbar_title.setText("Place Edit");
+
         initializeCategories();
 
         addressACTV = rootview.findViewById(R.id.placeAutoComplete);

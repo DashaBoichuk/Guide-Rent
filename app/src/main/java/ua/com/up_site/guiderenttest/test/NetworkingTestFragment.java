@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 import ua.com.up_site.guiderenttest.api.APIWorker;
 import ua.com.up_site.guiderenttest.login_page.LoginActivity;
@@ -85,6 +86,11 @@ public class NetworkingTestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_networking_test, container, false);
+
+        ((MainActivity) getActivity()).toolbar_title.setText("Networking Test");
+
+
+
 
         generate = rootView.findViewById(R.id.testButtonGenerate);
         send = rootView.findViewById(R.id.testButtonSend);
