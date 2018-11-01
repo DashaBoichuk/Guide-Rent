@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest.top_guides;
+package ua.com.up_site.guiderenttest.user_model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -6,11 +6,8 @@ import android.os.Parcelable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import ua.com.up_site.guiderenttest.user.UserInfo;
-
 //Placeholder для класса гида. Используйте его для профиля
 public class GuideInfo extends UserInfo implements Parcelable {
-    private ArrayList<String> interests = new ArrayList<>();
     private ArrayList<String> service = new ArrayList<>();
 
     //placeholder
@@ -40,6 +37,7 @@ public class GuideInfo extends UserInfo implements Parcelable {
     }
 
     private GuideInfo(Parcel in) {
+        super();
         name = in.readString();
         age = in.readString();
         interests = in.createStringArrayList();
@@ -59,14 +57,15 @@ public class GuideInfo extends UserInfo implements Parcelable {
     };
 
 
-    ArrayList<String> getInterests() {
+    public ArrayList<String> getInterests() {
         return interests;
     }
 
-    ArrayList<String> getService() {
+    public ArrayList<String> getService() {
         return service;
     }
 
+    /** For testing! This can be done with database */
     public static ArrayList<GuideInfo> createGuideList(int numGuides) {
         ArrayList<GuideInfo> guideInfoArrayList = new ArrayList<>();
 

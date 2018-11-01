@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import ua.com.up_site.guiderenttest.top_guides.TopGuidesFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ua.com.up_site.guiderenttest.fragments.InstitutionFragment;
@@ -102,24 +103,29 @@ public class MainActivity extends AppCompatActivity
                     switch (menuItem.getItemId()) {
                         case R.id.navigation_top:
                             mFragmentTransaction.replace(R.id.content, mTopGuidesFragment);
+                            mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
 
                         case R.id.navigation_route:
                             mFragmentTransaction.replace(R.id.content, routeFragment);
+                            mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
 
                         case R.id.navigation_location:
                             mFragmentTransaction.replace(R.id.content, locationFragment);
+                            mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
                         case R.id.navigation_add:
                             mFragmentTransaction.replace(R.id.content, mPlaceEditFragment);
+                            mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
                         case R.id.navigation_profile:
                             mFragmentTransaction.replace(R.id.content, mNetworkingTestFragment);
+                            mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
 
                         default:
