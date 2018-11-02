@@ -52,8 +52,8 @@ public class NetworksActivity extends AppCompatActivity {
                                         if (user != null) {
 
                                             UserInfo.setName(user.optString("first_name"));
-                                            String lastName = user.optString("last_name");
-                                            String email = user.optString("email");
+                                            UserInfo.setLastName(user.optString("last_name"));
+                                            UserInfo.setEmail(user.optString("email"));
 
                                         }
                                     }

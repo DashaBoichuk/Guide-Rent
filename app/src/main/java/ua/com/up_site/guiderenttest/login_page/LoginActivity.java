@@ -36,6 +36,14 @@ public class LoginActivity extends AppCompatActivity {
         facebookIV = findViewById(R.id.facebookIcon);
         googleIV = findViewById(R.id.googleIcon);
 
+        facebookIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent activityChangeIntent = new Intent(LoginActivity.this, NetworksActivity.class);
+                LoginActivity.this.startActivity(activityChangeIntent);
+            }
+        });
+
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
