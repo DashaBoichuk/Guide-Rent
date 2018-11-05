@@ -134,7 +134,7 @@ public class APIWorker {
      * addroute.php is not ready!
      */
     public static void addRoute(RouteData route) throws IOException {
-        //TODO: add route class (and id variable to it) to define routes in database
+        //TODO: add route class (and id variable to it) to define route in database
         Log.e(TAG, "createPlace: INIT addroute");
         //Для сериализации обьекта сontact в формат JSON при запросе
         GsonBuilder gsonRequestBuilder = new GsonBuilder();

@@ -24,9 +24,9 @@ public class DataParser {
 
         try {
 
-            jRoutes = jObject.getJSONArray("routes");
+            jRoutes = jObject.getJSONArray("route");
 
-            /** Traversing all routes */
+            /** Traversing all route */
             for (int i = 0; i < jRoutes.length(); i++) {
                 jLegs = ((JSONObject) jRoutes.get(i)).getJSONArray("legs");
                 List path = new ArrayList<>();

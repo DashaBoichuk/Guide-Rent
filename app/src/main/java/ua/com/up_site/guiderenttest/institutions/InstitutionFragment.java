@@ -1,6 +1,8 @@
-package ua.com.up_site.guiderenttest.fragments;
+package ua.com.up_site.guiderenttest.institutions;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +10,6 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
-import ua.com.up_site.guiderenttest.adapters.InstitutionAdapter;
 import ua.com.up_site.guiderenttest.models.CommonData;
+import ua.com.up_site.guiderenttest.place.PlaceEditFragment;
 
 public class InstitutionFragment extends Fragment {
     private Unbinder unbinder;
@@ -33,6 +33,12 @@ public class InstitutionFragment extends Fragment {
 
     List<CommonData> institutionData;
 
+    @BindView(R.id.fab_institution)
+    FloatingActionButton fab_institution;
+    PlaceEditFragment mPlaceEditFragment;
+
+    private android.support.v4.app.FragmentTransaction mFragmentTransaction;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,13 +50,44 @@ public class InstitutionFragment extends Fragment {
 
         searchViewInstitution.setBackgroundResource(R.drawable.frame);
 
+        recyclerInstitution.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0 || dy < 0 && fab_institution.isShown())
+                    fab_institution.hide();
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                    fab_institution.show();
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
+        mPlaceEditFragment = new PlaceEditFragment();
+
+        fab_institution.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mFragmentTransaction = getFragmentManager().beginTransaction();
+                mFragmentTransaction.replace(R.id.content, mPlaceEditFragment);
+                mFragmentTransaction.addToBackStack(null);
+                mFragmentTransaction.commit();
+            }
+        });
+
         recyclerInstitution.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerInstitution.setLayoutManager(layoutManager);
 
         initData();
         return view;
-
 
     }
 

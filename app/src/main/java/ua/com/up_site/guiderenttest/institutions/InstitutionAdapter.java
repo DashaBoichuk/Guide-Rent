@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest.adapters;
+package ua.com.up_site.guiderenttest.institutions;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -18,55 +18,56 @@ import butterknife.ButterKnife;
 import ua.com.up_site.guiderenttest.R;
 import ua.com.up_site.guiderenttest.models.CommonData;
 
-
-public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteHolder> {
+public class InstitutionAdapter extends RecyclerView.Adapter<InstitutionAdapter.InstitutionHolder> {
 
     private Context context;
-    private List<CommonData> routeData;
+    private List<CommonData> institutionData;
 
-    public RouteAdapter(Context context, List dataLists) {
+    public InstitutionAdapter(Context context, List dataLists) {
         this.context = context;
-        this.routeData = dataLists;
+        this.institutionData = dataLists;
     }
 
 
     @NonNull
     @Override
-    public RouteHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-      View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.route_list_item, viewGroup, false);
+    public InstitutionHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.institution_list_item, viewGroup, false);
 
-       RouteHolder routeHolder = new RouteHolder(v);
+        InstitutionHolder institutionHolder = new InstitutionHolder(v);
 
-        return routeHolder;
+        return institutionHolder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RouteHolder routeHolder, int i) {
+    public void onBindViewHolder(@NonNull InstitutionHolder viewHolder, int i) {
 
-        CommonData list = routeData.get(i);
+        CommonData list = institutionData.get(i);
 
-        routeHolder.imgMain.setImageResource(list.getImgMain());
-        routeHolder.title.setText(list.getTitle());
-        routeHolder.title2.setText(list.getTitle2());
-        routeHolder.imgStar.setImageResource(list.getImgStar());
-        routeHolder.valueStar.setText(list.getValueStar());
-        routeHolder.imgClock.setImageResource(list.getImgClock());
-        routeHolder.valueClock.setText(list.getValueClock());
-        routeHolder.quantityPhoto.setText(list.getQuantityPhoto());
-        routeHolder.imgPeople.setImageResource(list.getImgPeople());
-        routeHolder.quantityPeople.setText(list.getQuantityPeople());
-        routeHolder.visitors.setText(list.getVisitors());
+        viewHolder.imgMain.setImageResource(list.getImgMain());
+        viewHolder.title.setText(list.getTitle());
+        viewHolder.title2.setText(list.getTitle2());
+        viewHolder.imgStar.setImageResource(list.getImgStar());
+        viewHolder.valueStar.setText(list.getValueStar());
 
+
+        // it will be price instead valueClock
+        viewHolder.valueClock.setText(list.getValueClock());
+
+        viewHolder.quantityPhoto.setText(list.getQuantityPhoto());
+        viewHolder.imgPeople.setImageResource(list.getImgPeople());
+        viewHolder.quantityPeople.setText(list.getQuantityPeople());
+        viewHolder.visitors.setText(list.getVisitors());
     }
 
     @Override
     public int getItemCount() {
-        return routeData.size();
+        return institutionData.size();
+
     }
 
 
-
-    public class RouteHolder extends RecyclerView.ViewHolder{
+    public class InstitutionHolder extends RecyclerView.ViewHolder{
 
         @BindView(R.id.imgMain)
         ImageView imgMain;
@@ -78,8 +79,6 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteHolder>
         ImageView imgStar;
         @BindView(R.id.valueStar)
         TextView valueStar;
-        @BindView(R.id.imgClock)
-        ImageView imgClock;
         @BindView(R.id.valueClock)
         TextView valueClock;
         @BindView(R.id.quantityPhoto)
@@ -91,7 +90,7 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteHolder>
         @BindView(R.id.visitors)
         TextView visitors;
 
-        public RouteHolder(@NonNull View itemView) {
+        public InstitutionHolder(@NonNull View itemView) {
             super(itemView);
 
             ButterKnife.bind(this, itemView);
@@ -107,6 +106,5 @@ public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.RouteHolder>
 
         }
     }
-
-
 }
+
