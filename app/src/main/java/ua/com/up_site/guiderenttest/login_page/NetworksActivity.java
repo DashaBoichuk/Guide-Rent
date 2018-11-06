@@ -15,6 +15,8 @@ import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.login.widget.ProfilePictureView;
 
 import org.json.JSONObject;
 
@@ -28,15 +30,14 @@ public class NetworksActivity extends AppCompatActivity {
     private static final String EMAIL = "email";
     LoginButton loginButton;
     CallbackManager callbackManager;
+    private SimpleDraweeView mProfilePhotoView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_networks);
 
-
-
         loginButton = findViewById(R.id.login_fb_button);
-
 
         loginButton.setReadPermissions(Arrays.asList(EMAIL));
 
@@ -45,6 +46,7 @@ public class NetworksActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
 
+
                         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(),
                                 new GraphRequest.GraphJSONObjectCallback() {
                                     @Override
@@ -52,8 +54,11 @@ public class NetworksActivity extends AppCompatActivity {
                                         if (user != null) {
 
                                             UserInfo.setName(user.optString("first_name"));
-                                            String lastName = user.optString("last_name");
-                                            String email = user.optString("email");
+                                            UserInfo.setLastName(user.optString("last_name"));
+                                            UserInfo.setEmail(user.optString("email"));
+                                            UserInfo.setId(user.optString("id"));
+
+
 
                                         }
                                     }
@@ -86,6 +91,8 @@ public class NetworksActivity extends AppCompatActivity {
         LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
 
     }
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);

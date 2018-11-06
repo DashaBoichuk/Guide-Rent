@@ -16,6 +16,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+
+import com.facebook.login.widget.ProfilePictureView;
 
 import ua.com.up_site.guiderenttest.map.MapSelectLocationFragment;
 import ua.com.up_site.guiderenttest.top_guides.TopGuidesFragment;
@@ -52,6 +56,10 @@ public class MainActivity extends AppCompatActivity
     public Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     public TextView toolbar_title;
+   /* @BindView(R.id.tv_name)
+    TextView tvName;*/
+
+
 
     private PlaceFragment mPlaceFragment;
     private TopGuidesFragment mTopGuidesFragment;
@@ -62,12 +70,16 @@ public class MainActivity extends AppCompatActivity
     private LocationFragment locationFragment;
     private RouteFragment routeFragment;
     private FrameLayout content;
+    ProfilePictureView profilePic;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        Toast toast = Toast.makeText(getApplicationContext(), UserInfo.getName(), Toast.LENGTH_SHORT); toast.show();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -77,6 +89,8 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
+
+       // tvName.setText("ycfytu");
 
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         content = findViewById(R.id.content);
@@ -95,6 +109,8 @@ public class MainActivity extends AppCompatActivity
         mFragmentTransaction.replace(R.id.content, locationFragment);
         mFragmentTransaction.commit();
     }
+
+
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -145,6 +161,8 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
+
+
         Fragment fragment = null;
         Class fragmentClass = null;
 
@@ -165,11 +183,18 @@ public class MainActivity extends AppCompatActivity
         fragmentManager.beginTransaction().replace(R.id.content, fragment).commit();
 
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        TextView tvName = findViewById(R.id.tv_name);
+        tvName.setText(UserInfo.getName() + " " + UserInfo.getLastName());
+        TextView tvEmail = findViewById(R.id.tv_email);
+        tvEmail.setText(UserInfo.getEmail());
+        profilePic = (ProfilePictureView) findViewById(R.id.myProfilePic);
+        profilePic.setProfileId(UserInfo.getId());
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
