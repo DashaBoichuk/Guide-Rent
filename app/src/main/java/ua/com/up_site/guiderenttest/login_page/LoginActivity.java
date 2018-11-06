@@ -16,14 +16,18 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import java.io.IOException;
+
 import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
+import ua.com.up_site.guiderenttest.api.APIWorker;
 import ua.com.up_site.guiderenttest.test.UserGoogleAccount;
 
 public class LoginActivity extends AppCompatActivity {
 
     public static final int RC_SIGN_IN = 0;
 
+    boolean updateERRORflag = true;
     ImageView facebookIV;
     com.google.android.gms.common.SignInButton googleIV;
     GoogleSignInClient mGoogleSignInClient;
@@ -44,9 +48,8 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        Toast.makeText(this, gso.toString(), Toast.LENGTH_SHORT).show();
+        UserGoogleAccount.client = mGoogleSignInClient;
 
-       //  UserGoogleAccount.client = mGoogleSignInClient;
 
         googleIV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,18 +80,30 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        UserGoogleAccount.account = account;
-        updateUI(account);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+                    UserGoogleAccount.account = account;
+                    updateERRORflag = APIWorker.validateGoogleToken(account.getIdToken());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        if(!updateERRORflag)
+        updateUI(UserGoogleAccount.account);
     }
 
+    //Этот метод изменяет UI после успешного входа с помощью Google
     void updateUI(GoogleSignInAccount account) {
         if (account != null) {
             Toast.makeText(this, account.getIdToken(), Toast.LENGTH_LONG).show();
             Intent activityChangeIntent = new Intent(LoginActivity.this, MainActivity.class);
             LoginActivity.this.startActivity(activityChangeIntent);
         }
-       // else Toast.makeText(this, "account is null!", Toast.LENGTH_LONG).show();
+        // else Toast.makeText(this, "account is null!", Toast.LENGTH_LONG).show();
     }
 
     private void signIn() {
@@ -108,11 +123,25 @@ public class LoginActivity extends AppCompatActivity {
             handleSignInResult(task);
         }
     }
+
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+                        UserGoogleAccount.account = account;
+                        updateERRORflag = APIWorker.validateGoogleToken(account.getIdToken());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+            if(!updateERRORflag)
             updateUI(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -122,14 +151,14 @@ public class LoginActivity extends AppCompatActivity {
             e.printStackTrace();
             updateUI(null);
         }
-      // //Button fbButton = findViewById(R.id.facebookIcon);
-      // fbButton.setOnClickListener(new View.OnClickListener() {
-      //     @Override
-      //     public void onClick(View v) {
-      //         Intent activityChangeIntent = new Intent(LoginActivity.this, NetworksActivity.class);
-      //         LoginActivity.this.startActivity(activityChangeIntent);
-      //     }
-      // });
+        // //Button fbButton = findViewById(R.id.facebookIcon);
+        // fbButton.setOnClickListener(new View.OnClickListener() {
+        //     @Override
+        //     public void onClick(View v) {
+        //         Intent activityChangeIntent = new Intent(LoginActivity.this, NetworksActivity.class);
+        //         LoginActivity.this.startActivity(activityChangeIntent);
+        //     }
+        // });
 
     }
 

@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -55,12 +56,12 @@ import static android.content.ContentValues.TAG;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MapFragmentTest.OnFragmentInteractionListener} interface
+ * {@link MapGeneratePathFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MapFragmentTest#newInstance} factory method to
+ * Use the {@link MapGeneratePathFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MapFragmentTest extends android.support.v4.app.Fragment implements OnMapReadyCallback,
+public class MapGeneratePathFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
@@ -90,13 +91,15 @@ public class MapFragmentTest extends android.support.v4.app.Fragment implements 
     Marker mCurrLocationMarker;
     LocationRequest mLocationRequest;
 
+    FloatingActionButton fabMap;
 
-    public MapFragmentTest() {
+
+    public MapGeneratePathFragment() {
         // Required empty public constructor
     }
 
-    public static MapFragmentTest newInstance(String param1, String param2) {
-        MapFragmentTest fragment = new MapFragmentTest();
+    public static MapGeneratePathFragment newInstance(String param1, String param2) {
+        MapGeneratePathFragment fragment = new MapGeneratePathFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -119,6 +122,9 @@ public class MapFragmentTest extends android.support.v4.app.Fragment implements 
         View rootView = inflater.inflate(R.layout.fragment_map, container, false);
 
         ((MainActivity) getActivity()).toolbar_title.setText("Карта");
+
+        fabMap = rootView.findViewById(R.id.fab_add_location);
+        fabMap.hide();
 
         if (mMapFragment == null) {
             mMapFragment = SupportMapFragment.newInstance();
@@ -193,7 +199,7 @@ public class MapFragmentTest extends android.support.v4.app.Fragment implements 
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(getContext().getApplicationContext(),
+            if (ContextCompat.checkSelfPermission(getContext(),
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 buildGoogleApiClient();
@@ -569,7 +575,7 @@ public class MapFragmentTest extends android.support.v4.app.Fragment implements 
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-
+        Log.e(TAG, "onConnectionFailed: ERROR");
     }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;

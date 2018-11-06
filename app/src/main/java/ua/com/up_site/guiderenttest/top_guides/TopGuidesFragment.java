@@ -84,7 +84,6 @@ public class TopGuidesFragment extends Fragment {
                 mGuideProfileFragment.setArguments(bundle);
 
                 mFragmentTransaction = getFragmentManager().beginTransaction();
-                mFragmentTransaction.addToBackStack(null);
                 mFragmentTransaction.replace(R.id.content, mGuideProfileFragment);
                 mFragmentTransaction.addToBackStack(null);
                 mFragmentTransaction.commit();

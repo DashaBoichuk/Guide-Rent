@@ -1,6 +1,7 @@
 package ua.com.up_site.guiderenttest.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +19,7 @@ import butterknife.Unbinder;
 import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 import ua.com.up_site.guiderenttest.adapters.LocationAdapter;
+import ua.com.up_site.guiderenttest.map.MapSelectLocationFragment;
 import ua.com.up_site.guiderenttest.models.CommonData;
 
 public class LocationFragment extends Fragment {
@@ -29,6 +31,11 @@ public class LocationFragment extends Fragment {
     SearchView searchViewLocation;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager layoutManager;
+    @BindView(R.id.fab_add_location)
+    FloatingActionButton fab;
+
+    private android.support.v4.app.FragmentTransaction mFragmentTransaction;
+
 
     List<CommonData> locationData;
 
@@ -40,12 +47,24 @@ public class LocationFragment extends Fragment {
 
         ((MainActivity) getActivity()).toolbar_title.setText("Локации");
 
+        final MapSelectLocationFragment mapSelectLocationFragment = new MapSelectLocationFragment();
+
 
 
         searchViewLocation.setBackgroundResource(R.drawable.frame);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFragmentTransaction = getFragmentManager().beginTransaction();
+                mFragmentTransaction.replace(R.id.content, mapSelectLocationFragment);
+                mFragmentTransaction.addToBackStack(null);
+                mFragmentTransaction.commit();
+            }
+        });
 
         initData();
         return view;

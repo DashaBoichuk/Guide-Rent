@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import ua.com.up_site.guiderenttest.map.MapSelectLocationFragment;
 import ua.com.up_site.guiderenttest.top_guides.TopGuidesFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,19 +26,20 @@ import ua.com.up_site.guiderenttest.fragments.LocationFragment;
 import ua.com.up_site.guiderenttest.fragments.RouteFragment;
 import ua.com.up_site.guiderenttest.place.PlaceEditFragment;
 import ua.com.up_site.guiderenttest.place.PlaceFragment;
-import ua.com.up_site.guiderenttest.map.MapFragmentTest;
+import ua.com.up_site.guiderenttest.map.MapGeneratePathFragment;
 import ua.com.up_site.guiderenttest.test.NetworkingTestFragment;
 import ua.com.up_site.guiderenttest.top_guides.GuideProfileFragment;
 
 public class MainActivity extends AppCompatActivity
         implements TopGuidesFragment.OnFragmentInteractionListener,
         GuideProfileFragment.OnFragmentInteractionListener,
-        MapFragmentTest.OnFragmentInteractionListener,
+        MapGeneratePathFragment.OnFragmentInteractionListener,
         PlaceFragment.OnFragmentInteractionListener,
         PlaceEditFragment.OnFragmentInteractionListener,
         NetworkingTestFragment.OnFragmentInteractionListener,
         BottomNavigationView.OnNavigationItemSelectedListener,
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener,
+        MapSelectLocationFragment.OnFragmentInteractionListener {
 
 
     @BindView(R.id.drawer_layout)
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity
 
     private PlaceFragment mPlaceFragment;
     private TopGuidesFragment mTopGuidesFragment;
-    private MapFragmentTest mMapFragmentTest;
+    private MapGeneratePathFragment mMapGeneratePathFragment;
     private PlaceEditFragment mPlaceEditFragment;
     private NetworkingTestFragment mNetworkingTestFragment;
     private InstitutionFragment institutionFragment;
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity
 
         mPlaceFragment = new PlaceFragment();
         mTopGuidesFragment = new TopGuidesFragment();
-        mMapFragmentTest = new MapFragmentTest();
+        mMapGeneratePathFragment = new MapGeneratePathFragment();
         mPlaceEditFragment = new PlaceEditFragment();
         mNetworkingTestFragment = new NetworkingTestFragment();
         institutionFragment = new InstitutionFragment();
@@ -147,7 +149,7 @@ public class MainActivity extends AppCompatActivity
         Class fragmentClass = null;
 
         if (id == R.id.nav_draw_routes) {
-            fragmentClass = MapFragmentTest.class;
+            fragmentClass = MapGeneratePathFragment.class;
         } else if (id == R.id.nav_draw_locations) {
             fragmentClass = PlaceFragment.class;
         } else if (id == R.id.nav_draw_institutions) {
