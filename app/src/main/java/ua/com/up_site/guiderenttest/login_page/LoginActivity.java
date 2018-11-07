@@ -26,6 +26,7 @@ import ua.com.up_site.guiderenttest.test.UserGoogleAccount;
 public class LoginActivity extends AppCompatActivity {
 
     public static final int RC_SIGN_IN = 0;
+    private static final String TAG = "Login";
 
     boolean updateERRORflag = true;
     ImageView facebookIV;
@@ -95,13 +96,21 @@ public class LoginActivity extends AppCompatActivity {
                     GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
                     UserGoogleAccount.account = account;
                     updateERRORflag = APIWorker.validateGoogleToken(account.getIdToken());
+                    Log.i(TAG, "updateERRORflag = " + updateERRORflag );
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(!updateERRORflag) {
+                                updateUI(UserGoogleAccount.account);
+                            }
+                        }
+                    });
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
-        if(!updateERRORflag)
-        updateUI(UserGoogleAccount.account);
     }
 
     //Этот метод изменяет UI после успешного входа с помощью Google
