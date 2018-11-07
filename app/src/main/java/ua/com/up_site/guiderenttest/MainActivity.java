@@ -19,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
 import ua.com.up_site.guiderenttest.top_guides.TopGuidesFragment;
@@ -170,7 +171,8 @@ public class MainActivity extends AppCompatActivity
             fragmentClass = PlaceFragment.class;
         } else if (id == R.id.nav_draw_institutions) {
             fragmentClass = InstitutionFragment.class;
-
+        } else if (id == R.id.nav_draw_logout) {
+            LoginManager.getInstance().logOut();
         }
         try {
             fragment = (Fragment) fragmentClass.newInstance();

@@ -18,6 +18,10 @@
             android:id="@+id/nav_draw_institutions"
             android:icon="@drawable/ic_add"
             android:title="Заведения" />
+        <item
+            android:id="@+id/nav_draw_logout"
+            android:icon="@drawable/ic_add"
+            android:title="Выход" />
 
     </group>
 
