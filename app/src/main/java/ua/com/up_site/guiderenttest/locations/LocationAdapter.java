@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest.adapters;
+package ua.com.up_site.guiderenttest.locations;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

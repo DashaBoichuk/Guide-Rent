@@ -210,7 +210,7 @@ public class MapFragmentTest extends android.support.v4.app.Fragment implements 
             @Override
             public void onMapClick(LatLng point) {
 
-                // Already two locations
+                // Already two location
                 if (MarkerPoints.size() > 1) {
                     MarkerPoints.clear();
                     mMap.clear();
@@ -239,7 +239,7 @@ public class MapFragmentTest extends android.support.v4.app.Fragment implements 
                 // Add new marker to the Google Map Android API V2
                 mMap.addMarker(options);
 
-                // Checks, whether start and end locations are captured
+                // Checks, whether start and end location are captured
                 if (MarkerPoints.size() >= 2) {
                     LatLng origin = MarkerPoints.get(0);
                     LatLng dest = MarkerPoints.get(1);
@@ -445,7 +445,7 @@ public class MapFragmentTest extends android.support.v4.app.Fragment implements 
 
                 // Starts parsing data
                 routes = parser.parse(jObject);
-                Log.d("ParserTask", "Executing routes");
+                Log.d("ParserTask", "Executing route");
                 Log.d("ParserTask", routes.toString());
 
             } catch (Exception e) {
@@ -461,7 +461,7 @@ public class MapFragmentTest extends android.support.v4.app.Fragment implements 
             ArrayList<LatLng> points;
             PolylineOptions lineOptions = null;
 
-            // Traversing through all the routes
+            // Traversing through all the route
             for (int i = 0; i < result.size(); i++) {
                 points = new ArrayList<>();
                 lineOptions = new PolylineOptions();

@@ -1,6 +1,8 @@
-package ua.com.up_site.guiderenttest.fragments;
+package ua.com.up_site.guiderenttest.routes;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,8 +21,8 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
-import ua.com.up_site.guiderenttest.adapters.RouteAdapter;
 import ua.com.up_site.guiderenttest.models.CommonData;
+import ua.com.up_site.guiderenttest.place.PlaceEditFragment;
 
 
 public class RouteFragment extends Fragment {
@@ -35,6 +37,13 @@ public class RouteFragment extends Fragment {
 
     List<CommonData> routeData;
 
+    @BindView(R.id.fab_route)
+    FloatingActionButton fab_route;
+    PlaceEditFragment mPlaceEditFragment;
+
+    private android.support.v4.app.FragmentTransaction mFragmentTransaction;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,6 +53,41 @@ public class RouteFragment extends Fragment {
         ((MainActivity) getActivity()).toolbar_title.setText("Маршруты");
 
         searchViewRoute.setBackgroundResource(R.drawable.frame);
+
+
+       recyclerViewRoute.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if (dy > 0 || dy < 0 && fab_route.isShown())
+                    fab_route.hide();
+            }
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+
+                if (newState == RecyclerView.SCROLL_STATE_IDLE){
+                    fab_route.show();
+                }
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+        });
+
+
+        mPlaceEditFragment = new PlaceEditFragment();
+
+        fab_route.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                mFragmentTransaction = getFragmentManager().beginTransaction();
+                mFragmentTransaction.replace(R.id.content, mPlaceEditFragment);
+                mFragmentTransaction.addToBackStack(null);
+                mFragmentTransaction.commit();
+            }
+        });
+
 
         recyclerViewRoute.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
