@@ -41,5 +41,5 @@ public class NetworksActivity extends AppCompatActivity {
     }
 
 
-
+//jjuuuuyy
 }
