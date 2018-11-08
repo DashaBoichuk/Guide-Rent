@@ -22,7 +22,7 @@ import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 import ua.com.up_site.guiderenttest.api.APIWorker;
 import ua.com.up_site.guiderenttest.login_page.LoginActivity;
-import ua.com.up_site.guiderenttest.place.PlaceInfo;
+import ua.com.up_site.guiderenttest.places.PlaceInfo;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -20,7 +20,6 @@ import butterknife.Unbinder;
 import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 import ua.com.up_site.guiderenttest.models.CommonData;
-import ua.com.up_site.guiderenttest.place.PlaceEditFragment;
 
 public class LocationFragment extends Fragment {
 
@@ -36,7 +35,7 @@ public class LocationFragment extends Fragment {
 
     @BindView(R.id.fab_location)
     FloatingActionButton fab_location;
-    PlaceEditFragment mPlaceEditFragment;
+    LocationEditFragment locationEditFragment;
 
     private android.support.v4.app.FragmentTransaction mFragmentTransaction;
 
@@ -70,22 +69,18 @@ public class LocationFragment extends Fragment {
         });
 
 
-        mPlaceEditFragment = new PlaceEditFragment();
+        locationEditFragment = new LocationEditFragment();
 
         fab_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 mFragmentTransaction = getFragmentManager().beginTransaction();
-                mFragmentTransaction.replace(R.id.content, mPlaceEditFragment);
+                mFragmentTransaction.replace(R.id.content, locationEditFragment);
                 mFragmentTransaction.addToBackStack(null);
                 mFragmentTransaction.commit();
             }
         });
-
-
-
-
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());

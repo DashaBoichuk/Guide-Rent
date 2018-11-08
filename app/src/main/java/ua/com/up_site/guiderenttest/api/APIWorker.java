@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import ua.com.up_site.guiderenttest.map.RouteData;
-import ua.com.up_site.guiderenttest.place.PlaceInfo;
+import ua.com.up_site.guiderenttest.places.PlaceInfo;
 
 import static android.content.ContentValues.TAG;
 

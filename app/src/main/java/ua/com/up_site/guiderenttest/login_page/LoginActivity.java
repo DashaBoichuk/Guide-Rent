@@ -134,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent activityChangeIntent = new Intent(LoginActivity.this, NetworksActivity.class);
-                         LoginActivity.this.startActivity(activityChangeIntent);
+                LoginActivity.this.startActivity(activityChangeIntent);
             }
         });
 

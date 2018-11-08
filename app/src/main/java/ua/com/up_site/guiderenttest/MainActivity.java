@@ -22,14 +22,14 @@ import android.widget.Toast;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
+import ua.com.up_site.guiderenttest.places.PlaceFragment;
+import ua.com.up_site.guiderenttest.places.PlaceDetailFragment;
 import ua.com.up_site.guiderenttest.top_guides.TopGuidesFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ua.com.up_site.guiderenttest.institutions.InstitutionFragment;
 import ua.com.up_site.guiderenttest.locations.LocationFragment;
 import ua.com.up_site.guiderenttest.routes.RouteFragment;
-import ua.com.up_site.guiderenttest.place.PlaceEditFragment;
-import ua.com.up_site.guiderenttest.place.PlaceFragment;
+import ua.com.up_site.guiderenttest.places.PlaceEditFragment;
 import ua.com.up_site.guiderenttest.map.MapFragmentTest;
 import ua.com.up_site.guiderenttest.test.NetworkingTestFragment;
 import ua.com.up_site.guiderenttest.top_guides.GuideProfileFragment;
@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity
         implements TopGuidesFragment.OnFragmentInteractionListener,
         GuideProfileFragment.OnFragmentInteractionListener,
         MapFragmentTest.OnFragmentInteractionListener,
-        PlaceFragment.OnFragmentInteractionListener,
         PlaceEditFragment.OnFragmentInteractionListener,
         NetworkingTestFragment.OnFragmentInteractionListener,
         BottomNavigationView.OnNavigationItemSelectedListener,
@@ -55,21 +54,17 @@ public class MainActivity extends AppCompatActivity
     public Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     public TextView toolbar_title;
-   /* @BindView(R.id.tv_name)
-    TextView tvName;*/
 
-
-
-    private PlaceFragment mPlaceFragment;
+    private PlaceDetailFragment mPlaceDetailFragment;
     private TopGuidesFragment mTopGuidesFragment;
     private MapFragmentTest mMapFragmentTest;
     private PlaceEditFragment mPlaceEditFragment;
     private NetworkingTestFragment mNetworkingTestFragment;
-    private InstitutionFragment institutionFragment;
+    private PlaceFragment placeFragment;
     private LocationFragment locationFragment;
     private RouteFragment routeFragment;
     private FrameLayout content;
-    ProfilePictureView profilePic;
+   ProfilePictureView profilePic;
 
 
     @Override
@@ -89,26 +84,22 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-       // tvName.setText("ycfytu");
-
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         content = findViewById(R.id.content);
 
-        mPlaceFragment = new PlaceFragment();
+        mPlaceDetailFragment = new PlaceDetailFragment();
         mTopGuidesFragment = new TopGuidesFragment();
         mMapFragmentTest = new MapFragmentTest();
         mPlaceEditFragment = new PlaceEditFragment();
         mNetworkingTestFragment = new NetworkingTestFragment();
-        institutionFragment = new InstitutionFragment();
+        placeFragment = new PlaceFragment();
         locationFragment = new LocationFragment();
         routeFragment = new RouteFragment();
-
 
         android.support.v4.app.FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.replace(R.id.content, locationFragment);
         mFragmentTransaction.commit();
     }
-
 
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
@@ -160,17 +151,15 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
 
-
-
         Fragment fragment = null;
         Class fragmentClass = null;
 
         if (id == R.id.nav_draw_routes) {
             fragmentClass = MapFragmentTest.class;
         } else if (id == R.id.nav_draw_locations) {
-            fragmentClass = PlaceFragment.class;
+            fragmentClass = PlaceDetailFragment.class;
         } else if (id == R.id.nav_draw_institutions) {
-            fragmentClass = InstitutionFragment.class;
+            fragmentClass = PlaceFragment.class;
         } else if (id == R.id.nav_draw_logout) {
             LoginManager.getInstance().logOut();
         }

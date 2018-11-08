@@ -13,7 +13,7 @@
         <item
             android:id="@+id/nav_draw_locations"
             android:icon="@drawable/ic_man"
-            android:title="PlaceFragment" />
+            android:title="PlaceDetail" />
         <item
             android:id="@+id/nav_draw_institutions"
             android:icon="@drawable/ic_add"

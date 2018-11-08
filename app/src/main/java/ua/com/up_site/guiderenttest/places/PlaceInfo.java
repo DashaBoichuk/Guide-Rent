@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest.place;
+package ua.com.up_site.guiderenttest.places;
 
 import android.os.Parcel;
 import android.os.Parcelable;

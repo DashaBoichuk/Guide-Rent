@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest.institutions;
+package ua.com.up_site.guiderenttest.places;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -18,12 +18,12 @@ import butterknife.ButterKnife;
 import ua.com.up_site.guiderenttest.R;
 import ua.com.up_site.guiderenttest.models.CommonData;
 
-public class InstitutionAdapter extends RecyclerView.Adapter<InstitutionAdapter.InstitutionHolder> {
+public class PlaceAdapter extends RecyclerView.Adapter<PlaceAdapter.InstitutionHolder> {
 
     private Context context;
     private List<CommonData> institutionData;
 
-    public InstitutionAdapter(Context context, List dataLists) {
+    public PlaceAdapter(Context context, List dataLists) {
         this.context = context;
         this.institutionData = dataLists;
     }

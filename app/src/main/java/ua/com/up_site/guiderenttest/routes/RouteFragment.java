@@ -22,7 +22,7 @@ import butterknife.Unbinder;
 import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 import ua.com.up_site.guiderenttest.models.CommonData;
-import ua.com.up_site.guiderenttest.place.PlaceEditFragment;
+import ua.com.up_site.guiderenttest.places.PlaceEditFragment;
 
 
 public class RouteFragment extends Fragment {
