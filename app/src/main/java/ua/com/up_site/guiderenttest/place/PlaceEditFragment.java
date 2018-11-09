@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -55,6 +56,7 @@ public class PlaceEditFragment extends android.support.v4.app.Fragment {
     private String mParam2;
 
     private Unbinder unbinder;
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -63,6 +65,12 @@ public class PlaceEditFragment extends android.support.v4.app.Fragment {
 
     @BindView(R.id.fabMapPlaceEdit)
     FloatingActionButton fabMapPlaceEdit;
+
+    @BindView(R.id.placeEditName)
+    EditText placeEditName;
+
+    @BindView(R.id.placeEditImage)
+    ImageView placeEditImage;
 
 
     List<String> categories = new ArrayList<>();
@@ -124,7 +132,7 @@ public class PlaceEditFragment extends android.support.v4.app.Fragment {
         initializeCategories();
 
         addressACTV = rootView.findViewById(R.id.placeAutoComplete);
-        imageView = rootView.findViewById(R.id.guideProfileImage);
+        imageView = rootView.findViewById(R.id.placeEditImage);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,7 +188,7 @@ public class PlaceEditFragment extends android.support.v4.app.Fragment {
                                                 addressACTV.setText(address);
                                                 addressACTV.setSelection(addressACTV.getText().length());
                                             }
-                                        },500);
+                                        }, 500);
 
 
                                     } catch (NullPointerException e) {
@@ -219,7 +227,6 @@ public class PlaceEditFragment extends android.support.v4.app.Fragment {
         spinner.setAdapter(dataAdapter);
 
 
-
         return rootView;
     }
 
@@ -239,9 +246,11 @@ public class PlaceEditFragment extends android.support.v4.app.Fragment {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(getContext(), data);
-                String toastMsg = String.format("Place: %s", place.getName());
-                Toast.makeText(getContext(), toastMsg, Toast.LENGTH_LONG).show();
                 addressACTV.setText(place.getAddress());
+                placeEditName.setText(place.getName());
+                googlePlaceID = place.getId();
+                String toastMsg = String.format("PlaceId: %s", googlePlaceID);
+                Toast.makeText(getContext(), toastMsg, Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -274,21 +283,21 @@ public class PlaceEditFragment extends android.support.v4.app.Fragment {
         String[] DMS = stringDMS.split(",", 3);
 
         String[] stringD = DMS[0].split("/", 2);
-        Double D0 = new Double(stringD[0]);
-        Double D1 = new Double(stringD[1]);
+        Double D0 = Double.valueOf(stringD[0]);
+        Double D1 = Double.valueOf(stringD[1]);
         Double FloatD = D0 / D1;
 
         String[] stringM = DMS[1].split("/", 2);
-        Double M0 = new Double(stringM[0]);
-        Double M1 = new Double(stringM[1]);
+        Double M0 = Double.valueOf(stringM[0]);
+        Double M1 = Double.valueOf(stringM[1]);
         Double FloatM = M0 / M1;
 
         String[] stringS = DMS[2].split("/", 2);
-        Double S0 = new Double(stringS[0]);
-        Double S1 = new Double(stringS[1]);
+        Double S0 = Double.valueOf(stringS[0]);
+        Double S1 = Double.valueOf(stringS[1]);
         Double FloatS = S0 / S1;
 
-        result = new Double(FloatD + (FloatM / 60) + (FloatS / 3600));
+        result = FloatD + (FloatM / 60) + (FloatS / 3600);
 
         return result;
     }

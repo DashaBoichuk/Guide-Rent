@@ -8,7 +8,7 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/guideProfileImage"
+        android:id="@+id/placeEditImage"
         android:layout_width="114dp"
         android:layout_height="95dp"
         android:layout_marginEnd="8dp"
@@ -31,10 +31,10 @@
         android:layout_weight="1"
         android:text="22"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/guideProfileImage"
+        app:layout_constraintEnd_toEndOf="@+id/placeEditImage"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@+id/guideProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/placeEditImage"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -48,10 +48,10 @@
         android:text="Ann"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/guideProfileImage"
+        app:layout_constraintEnd_toEndOf="@+id/placeEditImage"
         app:layout_constraintHorizontal_bias="0.084"
-        app:layout_constraintStart_toStartOf="@+id/guideProfileImage"
-        app:layout_constraintTop_toBottomOf="@+id/guideProfileImage"
+        app:layout_constraintStart_toStartOf="@+id/placeEditImage"
+        app:layout_constraintTop_toBottomOf="@+id/placeEditImage"
         app:layout_constraintVertical_bias="0.0" />
 
 

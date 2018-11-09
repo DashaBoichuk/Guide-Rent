@@ -71,7 +71,7 @@ public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewH
 
             ageTextView = itemView.findViewById(R.id.tvAge);
             nameTextView = itemView.findViewById(R.id.tvName);
-            guideProfileImage = itemView.findViewById(R.id.guideProfileImage);
+            guideProfileImage = itemView.findViewById(R.id.placeEditImage);
         }
 
         public void bind(final GuideInfo _item, final OnItemClickListener _listener) {
