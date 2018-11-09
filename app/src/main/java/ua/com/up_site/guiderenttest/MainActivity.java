@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity
     @BindView(R.id.toolbar_title)
     public TextView toolbar_title;
 
+
     private PlaceDetailFragment mPlaceDetailFragment;
     private TopGuidesFragment mTopGuidesFragment;
     private MapFragmentTest mMapFragmentTest;
@@ -85,6 +86,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         content = findViewById(R.id.content);
 
         mPlaceDetailFragment = new PlaceDetailFragment();
