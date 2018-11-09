@@ -21,7 +21,7 @@
 
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/guideProfileImage"
+                android:id="@+id/placeEditImage"
                 android:layout_width="160dp"
                 android:layout_height="125dp"
                 android:layout_marginStart="8dp"
@@ -67,7 +67,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/guideProfileImage"
+                app:layout_constraintTop_toBottomOf="@+id/placeEditImage"
                 app:layout_constraintVertical_bias="5.0" />
 
             <TextView
