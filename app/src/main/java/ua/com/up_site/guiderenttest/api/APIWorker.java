@@ -87,11 +87,18 @@ public class APIWorker {
             e.printStackTrace();
         }
 
-        ValidateResponseModel validateResponseModel = gsonRequest.fromJson(responseData, ValidateResponseModel.class);
+        ValidateResponseModel validateResponseModel = null;
+        try {
+             validateResponseModel = gsonRequest.fromJson(responseData, ValidateResponseModel.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Log.d(TAG, "validateGoogleToken: " + gsonRequest.toJson(validateResponseModel));
 
+        if (validateResponseModel != null)
         return validateResponseModel.error;
+        else return true;
     }
 
     public static String createPlace(PlaceInfo place) throws IOException {

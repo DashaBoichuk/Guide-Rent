@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final int RC_SIGN_IN = 0;
     private static final String TAG = "Login";
 
-    boolean updateERRORflag = true;
+    boolean updateErrorFlag = true;
     ImageView facebookIV;
     com.google.android.gms.common.SignInButton googleIV;
     GoogleSignInClient mGoogleSignInClient;
@@ -95,13 +95,13 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
                     UserGoogleAccount.account = account;
-                    updateERRORflag = APIWorker.validateGoogleToken(account.getIdToken());
-                    Log.i(TAG, "updateERRORflag = " + updateERRORflag );
+                    updateErrorFlag = APIWorker.validateGoogleToken(account.getIdToken());
+                    Log.i(TAG, "updateErrorFlag = " + updateErrorFlag);
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            if(!updateERRORflag) {
+                            if (!updateErrorFlag) {
                                 updateUI(UserGoogleAccount.account);
                             }
                         }
@@ -152,19 +152,26 @@ public class LoginActivity extends AppCompatActivity {
                     try {
                         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
                         UserGoogleAccount.account = account;
-                        updateERRORflag = APIWorker.validateGoogleToken(account.getIdToken());
+                        updateErrorFlag = APIWorker.validateGoogleToken(account.getIdToken());
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (!updateErrorFlag) {
+                                    updateUI(UserGoogleAccount.account);
+                                }
+                            }
+                        });
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }
             }).start();
-            if(!updateERRORflag)
-            updateUI(account);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("Google Auth", "signInResult:failed code=" + e.getStatusCode());
-            Toast.makeText(this, "signInResult:failed code=" + e.getStatusCode(), Toast.LENGTH_LONG).show();
+            Log.w(TAG, "signInResult:failed code =" + e.getStatusCode());
+            Toast.makeText(this, "signInResult:failed code =" + e.getStatusCode(), Toast.LENGTH_LONG).show();
             e.printStackTrace();
             updateUI(null);
         }

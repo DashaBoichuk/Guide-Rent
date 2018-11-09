@@ -37,7 +37,7 @@ import ua.com.up_site.guiderenttest.R;
 public class MapSelectLocationFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
-         LocationListener{
+        LocationListener{
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -75,7 +75,6 @@ public class MapSelectLocationFragment extends android.support.v4.app.Fragment i
         // Required empty public constructor
     }
 
-    // TODO: Rename and change types and number of parameters
     public static MapSelectLocationFragment newInstance(String param1, String param2) {
         MapSelectLocationFragment fragment = new MapSelectLocationFragment();
         Bundle args = new Bundle();

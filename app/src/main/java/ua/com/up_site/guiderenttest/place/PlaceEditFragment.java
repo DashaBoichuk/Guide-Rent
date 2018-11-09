@@ -1,13 +1,14 @@
 package ua.com.up_site.guiderenttest.place;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,10 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.vansuita.pickimage.bean.PickResult;
 import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
@@ -28,21 +33,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 
+import static android.app.Activity.RESULT_OK;
 
-public class PlaceEditFragment extends Fragment {
+
+public class PlaceEditFragment extends android.support.v4.app.Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    int PLACE_PICKER_REQUEST = 1;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
+    private Unbinder unbinder;
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @BindView(R.id.fabMapPlaceEdit)
+    FloatingActionButton fabMapPlaceEdit;
+
+
     List<String> categories = new ArrayList<>();
+
+    String googlePlaceID;
 
     ImageView imageView;
     com.seatgeek.placesautocomplete.PlacesAutocompleteTextView addressACTV;
@@ -55,14 +80,6 @@ public class PlaceEditFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment PlaceEditFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static PlaceEditFragment newInstance(String param1, String param2) {
         PlaceEditFragment fragment = new PlaceEditFragment();
@@ -99,15 +116,15 @@ public class PlaceEditFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View rootview = inflater.inflate(R.layout.fragment_place_edit, container, false);
-
+        final View rootView = inflater.inflate(R.layout.fragment_place_edit, container, false);
+        unbinder = ButterKnife.bind(this, rootView);
 
         ((MainActivity) getActivity()).toolbar_title.setText("Place Edit");
 
         initializeCategories();
 
-        addressACTV = rootview.findViewById(R.id.placeAutoComplete);
-        imageView = rootview.findViewById(R.id.guideProfileImage);
+        addressACTV = rootView.findViewById(R.id.placeAutoComplete);
+        imageView = rootView.findViewById(R.id.guideProfileImage);
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,15 +201,12 @@ public class PlaceEditFragment extends Fragment {
             }
         });
 
-        Spinner spinner = rootview.findViewById(R.id.placeCategorySpinner);
+        Spinner spinner = rootView.findViewById(R.id.placeCategorySpinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 // On selecting a spinner item
                 String item = parent.getItemAtPosition(position).toString();
-
-                // Showing selected spinner item
-                Toast.makeText(parent.getContext(), "Selected: " + item, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -205,9 +219,32 @@ public class PlaceEditFragment extends Fragment {
         spinner.setAdapter(dataAdapter);
 
 
-        return rootview;
+
+        return rootView;
     }
 
+    @OnClick(R.id.fabMapPlaceEdit)
+    void fabMapPlaceEditOnClick(View view) {
+        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+        try {
+            startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+        } catch (GooglePlayServicesRepairableException e) {
+            e.printStackTrace();
+        } catch (GooglePlayServicesNotAvailableException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(getContext(), data);
+                String toastMsg = String.format("Place: %s", place.getName());
+                Toast.makeText(getContext(), toastMsg, Toast.LENGTH_LONG).show();
+                addressACTV.setText(place.getAddress());
+            }
+        }
+    }
 
     @Override
     public void onAttach(Context context) {

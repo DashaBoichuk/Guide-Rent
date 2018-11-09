@@ -18,21 +18,23 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.facebook.login.widget.ProfilePictureView;
 
-import ua.com.up_site.guiderenttest.map.MapSelectLocationFragment;
-import ua.com.up_site.guiderenttest.top_guides.TopGuidesFragment;
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ua.com.up_site.guiderenttest.fragments.InstitutionFragment;
 import ua.com.up_site.guiderenttest.fragments.LocationFragment;
 import ua.com.up_site.guiderenttest.fragments.RouteFragment;
+import ua.com.up_site.guiderenttest.map.MapGeneratePathFragment;
+import ua.com.up_site.guiderenttest.map.MapSelectLocationFragment;
 import ua.com.up_site.guiderenttest.place.PlaceEditFragment;
 import ua.com.up_site.guiderenttest.place.PlaceFragment;
-import ua.com.up_site.guiderenttest.map.MapGeneratePathFragment;
 import ua.com.up_site.guiderenttest.test.NetworkingTestFragment;
 import ua.com.up_site.guiderenttest.top_guides.GuideProfileFragment;
+import ua.com.up_site.guiderenttest.top_guides.TopGuidesFragment;
 
 public class MainActivity extends AppCompatActivity
         implements TopGuidesFragment.OnFragmentInteractionListener,
@@ -60,7 +62,6 @@ public class MainActivity extends AppCompatActivity
     TextView tvName;*/
 
 
-
     private PlaceFragment mPlaceFragment;
     private TopGuidesFragment mTopGuidesFragment;
     private MapGeneratePathFragment mMapGeneratePathFragment;
@@ -79,7 +80,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        Toast toast = Toast.makeText(getApplicationContext(), UserInfo.getName(), Toast.LENGTH_SHORT); toast.show();
+        Toast toast = Toast.makeText(getApplicationContext(), UserInfo.getName(), Toast.LENGTH_SHORT);
+        toast.show();
 
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -90,7 +92,7 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-       // tvName.setText("ycfytu");
+        // tvName.setText("ycfytu");
 
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         content = findViewById(R.id.content);
@@ -108,49 +110,108 @@ public class MainActivity extends AppCompatActivity
         android.support.v4.app.FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.replace(R.id.content, locationFragment);
         mFragmentTransaction.commit();
-    }
 
+        pushFragmentIntoStack(R.id.navigation_location);
+    }
 
 
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                    android.support.v4.app.FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+                    final String BACK_STACK_ROOT_TAG = "root_fragment";
+
+                    android.support.v4.app.FragmentTransaction mFragmentTransaction;
+                    checkStackLimit();
+                    mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+
 
                     switch (menuItem.getItemId()) {
                         case R.id.navigation_top:
+                            if (!isBackPressed) {
+                                pushFragmentIntoStack(R.id.navigation_top);
+                            }
+                            isBackPressed = false;
                             mFragmentTransaction.replace(R.id.content, mTopGuidesFragment);
                             mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
 
                         case R.id.navigation_route:
+                            if (!isBackPressed) {
+                                pushFragmentIntoStack(R.id.navigation_route);
+                            }
+                            isBackPressed = false;
                             mFragmentTransaction.replace(R.id.content, routeFragment);
                             mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
 
                         case R.id.navigation_location:
+                            if (!isBackPressed) {
+                                pushFragmentIntoStack(R.id.navigation_location);
+                            }
+                            isBackPressed = false;
                             mFragmentTransaction.replace(R.id.content, locationFragment);
                             mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
                         case R.id.navigation_add:
+                            if (!isBackPressed) {
+                                pushFragmentIntoStack(R.id.navigation_add);
+                            }
+                            isBackPressed = false;
                             mFragmentTransaction.replace(R.id.content, mPlaceEditFragment);
                             mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
                         case R.id.navigation_profile:
+                            if (!isBackPressed) {
+                                pushFragmentIntoStack(R.id.navigation_profile);
+                            }
+                            isBackPressed = false;
                             mFragmentTransaction.replace(R.id.content, mNetworkingTestFragment);
                             mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
-
+                            return true;
                         default:
                             return false;
                     }
                 }
+
+
             };
+    Deque<Integer> mStack = new ArrayDeque<>();
+    boolean isBackPressed = false;
+
+    private void checkStackLimit() {
+        FragmentManager fm = this.getSupportFragmentManager();
+
+        if(fm.getBackStackEntryCount() > 10) {
+
+            fm.popBackStack(); // remove one (you can also remove more)
+        }
+    }
+
+    private void pushFragmentIntoStack(int id) {
+        if (mStack.size() <= 10) {
+            mStack.push(id);
+        } else {
+            mStack.removeLast();
+            mStack.push(id);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mStack.size() > 1) {
+            isBackPressed = true;
+            mStack.pop();
+            bottomNavigationView.setSelectedItemId(mStack.peek());
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -160,7 +221,6 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         int id = menuItem.getItemId();
-
 
 
         Fragment fragment = null;

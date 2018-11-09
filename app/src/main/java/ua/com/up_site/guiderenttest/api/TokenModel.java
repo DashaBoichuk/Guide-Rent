@@ -1,9 +1,9 @@
 package ua.com.up_site.guiderenttest.api;
 
-public class TokenModel {
+ class TokenModel {
     String token;
 
-    public TokenModel(String token) {
+     TokenModel(String token) {
         this.token = token;
     }
 }

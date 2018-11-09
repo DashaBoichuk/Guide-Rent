@@ -123,7 +123,7 @@ public class MapGeneratePathFragment extends android.support.v4.app.Fragment imp
 
         ((MainActivity) getActivity()).toolbar_title.setText("Карта");
 
-        fabMap = rootView.findViewById(R.id.fab_add_location);
+        fabMap = rootView.findViewById(R.id.fabMap);
         fabMap.hide();
 
         if (mMapFragment == null) {
