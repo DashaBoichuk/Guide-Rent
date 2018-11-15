@@ -22,12 +22,12 @@ import android.widget.Toast;
 import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
+import ua.com.up_site.guiderenttest.locations.LocationTabFragment;
 import ua.com.up_site.guiderenttest.places.PlaceFragment;
 import ua.com.up_site.guiderenttest.places.PlaceDetailFragment;
 import ua.com.up_site.guiderenttest.top_guides.TopGuidesFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ua.com.up_site.guiderenttest.locations.LocationFragment;
 import ua.com.up_site.guiderenttest.routes.RouteFragment;
 import ua.com.up_site.guiderenttest.places.PlaceEditFragment;
 import ua.com.up_site.guiderenttest.map.MapFragmentTest;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity
     private PlaceEditFragment mPlaceEditFragment;
     private NetworkingTestFragment mNetworkingTestFragment;
     private PlaceFragment placeFragment;
-    private LocationFragment locationFragment;
+    private LocationTabFragment locationTabFragment;
     private RouteFragment routeFragment;
     private FrameLayout content;
    ProfilePictureView profilePic;
@@ -95,11 +95,11 @@ public class MainActivity extends AppCompatActivity
         mPlaceEditFragment = new PlaceEditFragment();
         mNetworkingTestFragment = new NetworkingTestFragment();
         placeFragment = new PlaceFragment();
-        locationFragment = new LocationFragment();
+        locationTabFragment = new LocationTabFragment();
         routeFragment = new RouteFragment();
 
         android.support.v4.app.FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        mFragmentTransaction.replace(R.id.content, locationFragment);
+        mFragmentTransaction.replace(R.id.content, locationTabFragment);
         mFragmentTransaction.commit();
     }
 
@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity
                             return true;
 
                         case R.id.navigation_location:
-                            mFragmentTransaction.replace(R.id.content, locationFragment);
+                            mFragmentTransaction.replace(R.id.content, locationTabFragment);
                             mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;

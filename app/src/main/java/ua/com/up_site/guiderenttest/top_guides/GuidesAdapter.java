@@ -1,6 +1,7 @@
 package ua.com.up_site.guiderenttest.top_guides;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -50,7 +51,8 @@ public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewH
         viewHolder.nameTextView.setText(guideInfo.getName());
         viewHolder.ageTextView.setText(guideInfo.getAge());
 
-
+        viewHolder.nameTextView.setTextColor(Color.WHITE);
+        viewHolder.ageTextView.setTextColor(Color.WHITE);
     }
 
     @Override

@@ -19,12 +19,12 @@ import butterknife.ButterKnife;
 import ua.com.up_site.guiderenttest.R;
 import ua.com.up_site.guiderenttest.models.CommonData;
 
-public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.LocationHolder> {
+public class LocationListAdapter extends RecyclerView.Adapter<LocationListAdapter.LocationHolder> {
 
     private Context context;
     private List<CommonData> locationData;
 
-    public LocationAdapter(Context context, List locationData) {
+    public LocationListAdapter(Context context, List locationData) {
         this.context = context;
         this.locationData = locationData;
     }

@@ -6,5 +6,7 @@
 
 
     <color name="colorBg">#0091EA</color>
+    <color name="colorScrollbar">#86bddf</color>
+    <color name="colorScrollbarTrack">#24a0ed</color>
     <color name="colorFAB">#40C4FF</color>
 </resources>
