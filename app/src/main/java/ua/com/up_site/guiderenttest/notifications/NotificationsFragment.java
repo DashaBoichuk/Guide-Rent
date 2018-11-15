@@ -1,4 +1,4 @@
- package ua.com.up_site.guiderenttest.test;
+package ua.com.up_site.guiderenttest.notifications;
 
 import android.content.Context;
 import android.net.Uri;
@@ -11,9 +11,7 @@ import android.view.ViewGroup;
 import ua.com.up_site.guiderenttest.R;
 
 
-public class NetworkingPlacesFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+public class NotificationsFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -23,13 +21,12 @@ public class NetworkingPlacesFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public NetworkingPlacesFragment() {
-        // Required empty public constructor
+    public NotificationsFragment() {
+
     }
 
-    // TODO: Rename and change types and number of parameters
-    public static NetworkingPlacesFragment newInstance(String param1, String param2) {
-        NetworkingPlacesFragment fragment = new NetworkingPlacesFragment();
+    public static NotificationsFragment newInstance(String param1, String param2) {
+        NotificationsFragment fragment = new NotificationsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -50,10 +47,9 @@ public class NetworkingPlacesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_networking_places, container, false);
+        return inflater.inflate(R.layout.fragment_notifications, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -78,7 +74,6 @@ public class NetworkingPlacesFragment extends Fragment {
     }
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }

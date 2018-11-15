@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest.locations;
+package ua.com.up_site.guiderenttest.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -33,6 +33,12 @@ public class LocationListFragment extends Fragment {
     FloatingActionButton fab_location;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager layoutManager;
+    @BindView(R.id.fab_add_location)
+    FloatingActionButton fab;
+
+    private android.support.v4.app.FragmentTransaction mFragmentTransaction;
+
+
     List<CommonData> locationData;
     LocationEditFragment locationEditFragment;
 
@@ -43,6 +49,12 @@ public class LocationListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_location_content, container, false);
         unbinder = ButterKnife.bind(this, view);
+
+        ((MainActivity) getActivity()).toolbar_title.setText("Локации");
+
+        final MapSelectLocationFragment mapSelectLocationFragment = new MapSelectLocationFragment();
+
+
 
         searchViewLocation.setBackgroundResource(R.drawable.frame);
 
@@ -81,6 +93,16 @@ public class LocationListFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFragmentTransaction = getFragmentManager().beginTransaction();
+                mFragmentTransaction.replace(R.id.content, mapSelectLocationFragment);
+                mFragmentTransaction.addToBackStack(null);
+                mFragmentTransaction.commit();
+            }
+        });
 
         initData();
         return view;

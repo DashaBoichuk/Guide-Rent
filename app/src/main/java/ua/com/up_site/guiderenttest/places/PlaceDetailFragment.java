@@ -1,10 +1,12 @@
-package ua.com.up_site.guiderenttest.places;
+package ua.com.up_site.guiderenttest.place;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.LayerDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -22,7 +24,20 @@ import android.widget.ViewFlipper;
 import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 
-public class PlaceDetailFragment extends Fragment {
+
+/**
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link PlaceFragment.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link PlaceFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class PlaceFragment extends Fragment {
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
     private ViewFlipper simpleViewFlipper;
     // private ViewFlipper TruitonFlipper;
@@ -31,13 +46,52 @@ public class PlaceDetailFragment extends Fragment {
     // private float initialX;
     int[] images = {R.drawable.first, R.drawable.second, R.drawable.third};     // array of images
 
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    private OnFragmentInteractionListener mListener;
+
+    public PlaceFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment PlaceFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static PlaceFragment newInstance(String param1, String param2) {
+        PlaceFragment fragment = new PlaceFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
 
-        View view = inflater.inflate(R.layout.fragment_place_detail, container, false);
+        View view = inflater.inflate(R.layout.fragment_place, container, false);
 
-        ((MainActivity) getActivity()).toolbar_title.setText("Place Detail");
+        ((MainActivity) getActivity()).toolbar_title.setText("Place");
 
       /*  view.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -74,7 +128,7 @@ public class PlaceDetailFragment extends Fragment {
      /*   TruitonFlipper = view.findViewById(R.id.flipper);
         TruitonFlipper.setInAnimation(getActivity(), android.R.anim.fade_in);
         TruitonFlipper.setOutAnimation(getActivity(), android.R.anim.fade_out);*/
-        final ua.com.up_site.guiderenttest.places.PlaceInfo placeInfo = new ua.com.up_site.guiderenttest.places.PlaceInfo("+38 066 121 12 12", "", "Г.ОДЕССА. УЛ. Б.АРНАУТСКАЯ 198", "10:00-23:00", "ТИП КУХНИ: ЕВРОПЕЙСКАЯ", 4.5, 234);
+        final ua.com.up_site.guiderenttest.place.PlaceInfo placeInfo = new ua.com.up_site.guiderenttest.place.PlaceInfo("+38 066 121 12 12", "", "Г.ОДЕССА. УЛ. Б.АРНАУТСКАЯ 198", "10:00-23:00", "ТИП КУХНИ: ЕВРОПЕЙСКАЯ", 4.5, 234);
 
         TextView phone_tv = view.findViewById(R.id.phonetv3);
         phone_tv.setText("ТЕЛ: " + placeInfo.getPhone());
@@ -111,6 +165,8 @@ public class PlaceDetailFragment extends Fragment {
         //  flipperLayout = (FlipperLayout)findViewById(R.id.flipper_layout);
         //setLayout();
 
+
+
         ratingBar = view.findViewById(R.id.ratingBar2);
         //   ratingBar
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
@@ -127,5 +183,37 @@ public class PlaceDetailFragment extends Fragment {
         stars.getDrawable(2).setColorFilter(Color.parseColor("#fcfcfc"), PorterDuff.Mode.SRC_ATOP);
 
         return view;
+    }
+
+
+
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 }

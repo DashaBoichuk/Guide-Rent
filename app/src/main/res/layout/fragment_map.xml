@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBg"
-    tools:context=".map.MapFragmentTest">
+    tools:context=".map.MapGeneratePathFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -22,5 +23,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="31dp"
         android:layout_marginBottom="432dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:clickable="true"
+        android:src="@drawable/ic_add_black_24dp" />
 
 </FrameLayout>

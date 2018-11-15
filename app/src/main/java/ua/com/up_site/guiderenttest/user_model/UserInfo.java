@@ -3,11 +3,13 @@ package ua.com.up_site.guiderenttest.user_model;
 import java.util.ArrayList;
 
 public abstract class UserInfo {
-    String token;
     protected String name;
     String age;
     String login;
     String email;
+    boolean email_verified;
+    String picture;
+    String locale;
     float rating;
     boolean sex;
     boolean isBusy;

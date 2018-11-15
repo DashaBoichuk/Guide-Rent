@@ -6,12 +6,12 @@ import java.util.List;
 
 public class RouteData {
     private List<LatLng> pointsList;
-    private int length;
+    private LatLng firstLocation;
+    private LatLng lastLocation;
    // private String name;
 
     public RouteData(List<LatLng> pointsList) {
         this.pointsList = pointsList;
-        this.length = pointsList.size();
 
     }
 }
