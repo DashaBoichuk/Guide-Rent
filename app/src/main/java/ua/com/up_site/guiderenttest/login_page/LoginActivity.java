@@ -104,6 +104,9 @@ public class LoginActivity extends AppCompatActivity {
                             if (!updateErrorFlag) {
                                 updateUI(UserGoogleAccount.account);
                             }
+                            else {
+                                signIn();
+                            }
                         }
                     });
                 } catch (IOException e) {

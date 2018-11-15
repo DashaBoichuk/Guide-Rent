@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import ua.com.up_site.guiderenttest.map.LocationData;
 import ua.com.up_site.guiderenttest.map.RouteData;
 import ua.com.up_site.guiderenttest.place.PlaceInfo;
+import ua.com.up_site.guiderenttest.test.UserGoogleAccount;
 
 
 public class APIWorker {
@@ -87,23 +88,25 @@ public class APIWorker {
             e.printStackTrace();
         }
 
-        ValidateResponseModel validateResponseModel = null;
+        ValidateResponseModel validatedResponseModel = null;
         try {
-             validateResponseModel = gsonRequest.fromJson(responseData, ValidateResponseModel.class);
+             validatedResponseModel = gsonRequest.fromJson(responseData, ValidateResponseModel.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        Log.d(TAG, "validateGoogleToken: " + gsonRequest.toJson(validateResponseModel));
+        Log.d(TAG, "validateGoogleToken: " + gsonRequest.toJson(validatedResponseModel));
 
-        if (validateResponseModel != null)
-        return validateResponseModel.error;
+        if (validatedResponseModel != null) {
+            UserGoogleAccount.google_token = validatedResponseModel.token;
+            return validatedResponseModel.error;
+        }
         else return true;
     }
 
     public static String createPlace(PlaceInfo place) throws IOException {
 
-        Log.e(TAG, "createPlace: INIT createPlace");
+        Log.e(TAG, "createPlace: INIT");
         //Для сериализации обьекта сontact в формат JSON при запросе
         GsonBuilder gsonRequestBuilder = new GsonBuilder();
         gsonRequestBuilder.setPrettyPrinting();
@@ -114,7 +117,7 @@ public class APIWorker {
 
         Log.w("Networking", jsonPlace);
 
-        URL obj = new URL(rootURL + "createplace.php");
+        URL obj = new URL(rootURL + "createplace.php/");
         String responseData = "";
         int responseCode;
 
@@ -126,7 +129,10 @@ public class APIWorker {
 
         //Для будущих токенов
         //con.setRequestProperty("Authorization", token);
-        //con.setRequestProperty("Api", apiKey);
+        String token = UserGoogleAccount.google_token;
+        Log.d(TAG, "createPlace: token = " + token);
+        if (token != null)
+        con.setRequestProperty("TOKEN", token);
 
         //Отправление POST request
         con.setDoOutput(true);
@@ -163,7 +169,7 @@ public class APIWorker {
     }
 
     public static ArrayList<PlaceInfo> getPlacesInfo(final int sortIndex, final int portion) throws IOException {
-        Log.e(TAG, "createPlace: INIT createPlace");
+        Log.e(TAG, "getPlacesInfo: INIT");
 
         URL obj = new URL(rootURL + "getplaces.php");
         String responseData = "";
@@ -176,7 +182,9 @@ public class APIWorker {
         con.setRequestMethod("POST");
 
         //Параметры
+        //По чему сортируем
         con.setRequestProperty("SortIndex", String.valueOf(sortIndex));
+        //Какую десятку выбираем
         con.setRequestProperty("Portion", String.valueOf(portion));
 
         con.setDoOutput(true);
@@ -186,7 +194,6 @@ public class APIWorker {
             BufferedReader in = new BufferedReader
                     (new InputStreamReader(con.getInputStream()));
             String inputLine;
-            // TODO: Replaced StringBuffer with StringBuilder, test it!
             StringBuilder response = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
@@ -213,7 +220,7 @@ public class APIWorker {
      */
     public static void addRoute(RouteData route) throws IOException {
         //TODO: add route class (and id variable to it) to define routes in database
-        Log.e(TAG, "addRoute: INIT addroute");
+        Log.e(TAG, "addRoute: INIT");
         //Для сериализации обьекта сontact в формат JSON при запросе
         GsonBuilder gsonRequestBuilder = new GsonBuilder();
         gsonRequestBuilder.setPrettyPrinting();

@@ -30,7 +30,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
 
-        <activity android:name=".login_page.LoginActivity">
+        <activity android:name=".login_page.LoginActivity" android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

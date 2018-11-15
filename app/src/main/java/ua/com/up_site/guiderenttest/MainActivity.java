@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity
         tvName.setText(UserInfo.getName() + " " + UserInfo.getLastName());
         TextView tvEmail = findViewById(R.id.tv_email);
         tvEmail.setText(UserInfo.getEmail());
-        profilePic = (ProfilePictureView) findViewById(R.id.myProfilePic);
+        profilePic =  findViewById(R.id.myProfilePic);
         profilePic.setProfileId(UserInfo.getId());
         getMenuInflater().inflate(R.menu.main, menu);
         return true;

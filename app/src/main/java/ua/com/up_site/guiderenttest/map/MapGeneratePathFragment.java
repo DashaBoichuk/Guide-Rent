@@ -2,7 +2,6 @@ package ua.com.up_site.guiderenttest.map;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -32,6 +31,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
@@ -51,26 +51,13 @@ import java.util.List;
 import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 
-import static android.content.ContentValues.TAG;
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MapGeneratePathFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MapGeneratePathFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MapGeneratePathFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -93,6 +80,13 @@ public class MapGeneratePathFragment extends android.support.v4.app.Fragment imp
 
     FloatingActionButton fabMap;
 
+    private static final LatLngBounds ODESSA_BOUNDS = new LatLngBounds(
+            new LatLng(46.355998524119, 30.647536441684),
+            new LatLng(46.585475020808, 30.805224515498));
+
+    private final int MIN_ZOOM = 11;
+    private String TAG = "MapGeneratePath";
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     public MapGeneratePathFragment() {
         // Required empty public constructor
@@ -168,7 +162,6 @@ public class MapGeneratePathFragment extends android.support.v4.app.Fragment imp
     }
 
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -196,6 +189,8 @@ public class MapGeneratePathFragment extends android.support.v4.app.Fragment imp
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setLatLngBoundsForCameraTarget(ODESSA_BOUNDS);
+        mMap.setMinZoomPreference(MIN_ZOOM);
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -267,16 +262,6 @@ public class MapGeneratePathFragment extends android.support.v4.app.Fragment imp
 
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
@@ -353,7 +338,7 @@ public class MapGeneratePathFragment extends android.support.v4.app.Fragment imp
             }
 
             data = sb.toString();
-            Log.d("downloadUrl", data.toString());
+            Log.d("downloadUrl", data);
             br.close();
 
         } catch (Exception e) {
@@ -578,7 +563,6 @@ public class MapGeneratePathFragment extends android.support.v4.app.Fragment imp
         Log.e(TAG, "onConnectionFailed: ERROR");
     }
 
-    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
     public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(getActivity(),

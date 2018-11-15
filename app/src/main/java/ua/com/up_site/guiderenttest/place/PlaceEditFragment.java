@@ -2,6 +2,7 @@ package ua.com.up_site.guiderenttest.place;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
 import android.media.ExifInterface;
@@ -21,8 +22,16 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.GeoDataClient;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlacePhotoMetadata;
+import com.google.android.gms.location.places.PlacePhotoMetadataBuffer;
+import com.google.android.gms.location.places.PlacePhotoMetadataResponse;
+import com.google.android.gms.location.places.PlacePhotoResponse;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.vansuita.pickimage.bean.PickResult;
 import com.vansuita.pickimage.bundle.PickSetup;
 import com.vansuita.pickimage.dialog.PickImageDialog;
@@ -71,6 +80,8 @@ public class PlaceEditFragment extends android.support.v4.app.Fragment {
 
     @BindView(R.id.placeEditImage)
     ImageView placeEditImage;
+
+    private GeoDataClient mGeoDataClient;
 
 
     List<String> categories = new ArrayList<>();
@@ -130,6 +141,8 @@ public class PlaceEditFragment extends android.support.v4.app.Fragment {
         ((MainActivity) getActivity()).toolbar_title.setText("Place Edit");
 
         initializeCategories();
+
+        mGeoDataClient = Places.getGeoDataClient(getContext());
 
         addressACTV = rootView.findViewById(R.id.placeAutoComplete);
         imageView = rootView.findViewById(R.id.placeEditImage);
@@ -242,13 +255,39 @@ public class PlaceEditFragment extends android.support.v4.app.Fragment {
         }
     }
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(final int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == RESULT_OK) {
                 Place place = PlacePicker.getPlace(getContext(), data);
                 addressACTV.setText(place.getAddress());
                 placeEditName.setText(place.getName());
                 googlePlaceID = place.getId();
+                mGeoDataClient.getPlacePhotos(googlePlaceID).addOnCompleteListener(new OnCompleteListener<PlacePhotoMetadataResponse>() {
+                    @Override
+                    public void onComplete(@NonNull Task<PlacePhotoMetadataResponse> task) {
+                        PlacePhotoMetadataResponse response = task.getResult();
+                        PlacePhotoMetadataBuffer buffer = response.getPhotoMetadata();
+                        PlacePhotoMetadata photoMetadata = null;
+                        try {
+                            photoMetadata = buffer.get(0);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        if (photoMetadata != null) {
+                            CharSequence attribution = photoMetadata.getAttributions();
+                            Task<PlacePhotoResponse> photoResponse = mGeoDataClient.getPhoto(photoMetadata);
+                            photoResponse.addOnCompleteListener(new OnCompleteListener<PlacePhotoResponse>() {
+                                @Override
+                                public void onComplete(@NonNull Task<PlacePhotoResponse> task) {
+                                    PlacePhotoResponse photo = task.getResult();
+                                    Bitmap bitmap = photo.getBitmap();
+                                    placeEditImage.setImageBitmap(bitmap);
+                                }
+                            });
+                        }
+                    }
+                });
+
                 String toastMsg = String.format("PlaceId: %s", googlePlaceID);
                 Toast.makeText(getContext(), toastMsg, Toast.LENGTH_LONG).show();
             }

@@ -26,7 +26,7 @@ public class GuidesAdapter extends RecyclerView.Adapter<GuidesAdapter.GuideViewH
 
     private final OnItemClickListener listener;
 
-    public GuidesAdapter(List<GuideInfo> guideInfoList, OnItemClickListener _listener) {
+    GuidesAdapter(List<GuideInfo> guideInfoList, OnItemClickListener _listener) {
         this.mGuideInfo = guideInfoList;
         this.listener = _listener;
     }
