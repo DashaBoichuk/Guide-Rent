@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest.place;
+package ua.com.up_site.guiderenttest.places;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -24,16 +24,7 @@ import android.widget.ViewFlipper;
 import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PlaceFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PlaceFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class PlaceFragment extends Fragment {
+public class PlaceDetailFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -53,7 +44,7 @@ public class PlaceFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PlaceFragment() {
+    public PlaceDetailFragment() {
         // Required empty public constructor
     }
 
@@ -128,7 +119,7 @@ public class PlaceFragment extends Fragment {
      /*   TruitonFlipper = view.findViewById(R.id.flipper);
         TruitonFlipper.setInAnimation(getActivity(), android.R.anim.fade_in);
         TruitonFlipper.setOutAnimation(getActivity(), android.R.anim.fade_out);*/
-        final ua.com.up_site.guiderenttest.place.PlaceInfo placeInfo = new ua.com.up_site.guiderenttest.place.PlaceInfo("+38 066 121 12 12", "", "Г.ОДЕССА. УЛ. Б.АРНАУТСКАЯ 198", "10:00-23:00", "ТИП КУХНИ: ЕВРОПЕЙСКАЯ", 4.5, 234);
+        final ua.com.up_site.guiderenttest.places.PlaceInfo placeInfo = new ua.com.up_site.guiderenttest.places.PlaceInfo("+38 066 121 12 12", "", "Г.ОДЕССА. УЛ. Б.АРНАУТСКАЯ 198", "10:00-23:00", "ТИП КУХНИ: ЕВРОПЕЙСКАЯ", 4.5, 234);
 
         TextView phone_tv = view.findViewById(R.id.phonetv3);
         phone_tv.setText("ТЕЛ: " + placeInfo.getPhone());

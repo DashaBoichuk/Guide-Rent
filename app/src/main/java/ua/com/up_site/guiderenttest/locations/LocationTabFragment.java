@@ -33,7 +33,7 @@ public class LocationTabFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_location, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        locationTabAdapter = new LocationTabAdapter(getFragmentManager());
+        locationTabAdapter = new LocationTabAdapter(getChildFragmentManager());
         viewPagerLocation.setAdapter(locationTabAdapter);
 
         viewPagerLocation.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayoutLocation));
@@ -104,7 +104,7 @@ public class LocationTabFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        locationTabAdapter = new LocationTabAdapter(getFragmentManager());
+        locationTabAdapter = new LocationTabAdapter(getChildFragmentManager());
         viewPagerLocation.setAdapter(locationTabAdapter);
         viewPagerLocation.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayoutLocation));
     }

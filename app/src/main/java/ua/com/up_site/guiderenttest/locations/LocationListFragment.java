@@ -1,4 +1,4 @@
-package ua.com.up_site.guiderenttest.fragments;
+package ua.com.up_site.guiderenttest.locations;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,6 +20,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import ua.com.up_site.guiderenttest.MainActivity;
 import ua.com.up_site.guiderenttest.R;
+import ua.com.up_site.guiderenttest.map.MapSelectLocationFragment;
 import ua.com.up_site.guiderenttest.models.CommonData;
 
 public class LocationListFragment extends Fragment {
@@ -29,20 +30,13 @@ public class LocationListFragment extends Fragment {
     RecyclerView recyclerView;
     @BindView(R.id.searchViewLocation)
     SearchView searchViewLocation;
-   @BindView(R.id.fab_location)
+    @BindView(R.id.fab_add_location)
     FloatingActionButton fab_location;
     RecyclerView.Adapter mAdapter;
     RecyclerView.LayoutManager layoutManager;
-    @BindView(R.id.fab_add_location)
-    FloatingActionButton fab;
 
     private android.support.v4.app.FragmentTransaction mFragmentTransaction;
-
-
     List<CommonData> locationData;
-    LocationEditFragment locationEditFragment;
-
-    private android.support.v4.app.FragmentTransaction mFragmentTransaction;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,8 +47,6 @@ public class LocationListFragment extends Fragment {
         ((MainActivity) getActivity()).toolbar_title.setText("Локации");
 
         final MapSelectLocationFragment mapSelectLocationFragment = new MapSelectLocationFragment();
-
-
 
         searchViewLocation.setBackgroundResource(R.drawable.frame);
 
@@ -77,7 +69,7 @@ public class LocationListFragment extends Fragment {
             }
         });
 
-        locationEditFragment = new LocationEditFragment();
+  /*     locationEditFragment = new LocationEditFragment();
 
         fab_location.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,13 +80,13 @@ public class LocationListFragment extends Fragment {
                 mFragmentTransaction.addToBackStack(null);
                 mFragmentTransaction.commit();
             }
-        });
+        });    */
 
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        fab.setOnClickListener(new View.OnClickListener() {
+        fab_location.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mFragmentTransaction = getFragmentManager().beginTransaction();

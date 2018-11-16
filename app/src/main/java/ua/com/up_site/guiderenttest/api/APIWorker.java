@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 import ua.com.up_site.guiderenttest.map.LocationData;
 import ua.com.up_site.guiderenttest.map.RouteData;
-import ua.com.up_site.guiderenttest.place.PlaceInfo;
+import ua.com.up_site.guiderenttest.places.PlaceInfo;
 import ua.com.up_site.guiderenttest.test.UserGoogleAccount;
 
 

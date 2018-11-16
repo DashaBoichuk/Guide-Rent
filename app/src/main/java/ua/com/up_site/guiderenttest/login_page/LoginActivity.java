@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
             public void run() {
                 try {
                     GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+                    if (account != null) {
                     UserGoogleAccount.account = account;
                     updateErrorFlag = APIWorker.validateGoogleToken(account.getIdToken());
                     Log.i(TAG, "updateErrorFlag = " + updateErrorFlag);
@@ -108,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                                 signIn();
                             }
                         }
-                    });
+                    }); }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -119,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
     //Этот метод изменяет UI после успешного входа с помощью Google
     void updateUI(GoogleSignInAccount account) {
         if (account != null) {
-            Toast.makeText(this, account.getIdToken(), Toast.LENGTH_LONG).show();
+          //  Toast.makeText(this, account.getIdToken(), Toast.LENGTH_LONG).show();
             Intent activityChangeIntent = new Intent(LoginActivity.this, MainActivity.class);
             LoginActivity.this.startActivity(activityChangeIntent);
         }

@@ -25,13 +25,14 @@ import java.util.Deque;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import ua.com.up_site.guiderenttest.fragments.InstitutionFragment;
-import ua.com.up_site.guiderenttest.fragments.LocationFragment;
-import ua.com.up_site.guiderenttest.fragments.RouteFragment;
+
+import ua.com.up_site.guiderenttest.locations.LocationTabFragment;
 import ua.com.up_site.guiderenttest.map.MapGeneratePathFragment;
 import ua.com.up_site.guiderenttest.map.MapSelectLocationFragment;
-import ua.com.up_site.guiderenttest.place.PlaceEditFragment;
-import ua.com.up_site.guiderenttest.place.PlaceFragment;
+
+import ua.com.up_site.guiderenttest.places.PlaceEditFragment;
+import ua.com.up_site.guiderenttest.places.PlaceFragment;
+import ua.com.up_site.guiderenttest.routes.RouteFragment;
 import ua.com.up_site.guiderenttest.test.NetworkingTestFragment;
 import ua.com.up_site.guiderenttest.top_guides.GuideProfileFragment;
 import ua.com.up_site.guiderenttest.top_guides.TopGuidesFragment;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity
         implements TopGuidesFragment.OnFragmentInteractionListener,
         GuideProfileFragment.OnFragmentInteractionListener,
         MapGeneratePathFragment.OnFragmentInteractionListener,
-        PlaceFragment.OnFragmentInteractionListener,
+
         PlaceEditFragment.OnFragmentInteractionListener,
         NetworkingTestFragment.OnFragmentInteractionListener,
         BottomNavigationView.OnNavigationItemSelectedListener,
@@ -58,17 +59,14 @@ public class MainActivity extends AppCompatActivity
     public Toolbar toolbar;
     @BindView(R.id.toolbar_title)
     public TextView toolbar_title;
-   /* @BindView(R.id.tv_name)
-    TextView tvName;*/
-
 
     private PlaceFragment mPlaceFragment;
     private TopGuidesFragment mTopGuidesFragment;
     private MapGeneratePathFragment mMapGeneratePathFragment;
     private PlaceEditFragment mPlaceEditFragment;
     private NetworkingTestFragment mNetworkingTestFragment;
-    private InstitutionFragment institutionFragment;
-    private LocationFragment locationFragment;
+    private PlaceFragment placeFragment;
+    private LocationTabFragment locationTabFragment;
     private RouteFragment routeFragment;
     private FrameLayout content;
     ProfilePictureView profilePic;
@@ -92,8 +90,6 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        // tvName.setText("ycfytu");
-
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         content = findViewById(R.id.content);
 
@@ -102,13 +98,13 @@ public class MainActivity extends AppCompatActivity
         mMapGeneratePathFragment = new MapGeneratePathFragment();
         mPlaceEditFragment = new PlaceEditFragment();
         mNetworkingTestFragment = new NetworkingTestFragment();
-        institutionFragment = new InstitutionFragment();
-        locationFragment = new LocationFragment();
+        placeFragment = new PlaceFragment();
+        locationTabFragment = new LocationTabFragment();
         routeFragment = new RouteFragment();
 
 
         android.support.v4.app.FragmentTransaction mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        mFragmentTransaction.replace(R.id.content, locationFragment);
+        mFragmentTransaction.replace(R.id.content, locationTabFragment);
         mFragmentTransaction.commit();
 
         pushFragmentIntoStack(R.id.navigation_location);
@@ -152,7 +148,7 @@ public class MainActivity extends AppCompatActivity
                                 pushFragmentIntoStack(R.id.navigation_location);
                             }
                             isBackPressed = false;
-                            mFragmentTransaction.replace(R.id.content, locationFragment);
+                            mFragmentTransaction.replace(R.id.content, locationTabFragment);
                             mFragmentTransaction.addToBackStack(null);
                             mFragmentTransaction.commit();
                             return true;
@@ -231,7 +227,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_draw_locations) {
             fragmentClass = PlaceFragment.class;
         } else if (id == R.id.nav_draw_institutions) {
-            fragmentClass = InstitutionFragment.class;
+            fragmentClass = PlaceFragment.class;
 
         }
         try {
